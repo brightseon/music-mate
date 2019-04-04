@@ -1,0 +1,9 @@
+{
+  "name": "music-mate",
+  "version": "1.0.0",
+  "description": "Youtube API를 이용한 음악 플레이어",
+  "main": "index.js",
+  "repository": "https://github.com/seon-u/music-mate.git",
+  "author": "seon <seonu0823@gmail.com>",
+  "license": "MIT"
+}
