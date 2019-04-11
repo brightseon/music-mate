@@ -1,0 +1,1 @@
+const API_ADDRESS : string = 'https://www.googleapis.com/youtube/v3';
