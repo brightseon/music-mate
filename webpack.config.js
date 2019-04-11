@@ -44,6 +44,13 @@ const config = {
                         }
                     }
                 ]
+            },
+            {
+                test : /\.(jpg|png|svg|ico|icns)$/,
+                loader : 'file-loader',
+                options : {
+                    name : '[path][name].[ext]'
+                }
             }
         ]
     },
