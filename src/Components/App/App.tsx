@@ -1,10 +1,12 @@
 import React, { SFC } from 'react';
 import styles from './styles.scss';
-import Thumbnail from '../Thumbnail';
+import Background from '../Background';
+import MusicPlayer from '../MusicPlayer';
 
 const App : SFC = () => (
-    <div className={ styles.app }>
-        <Thumbnail className={ styles.backgroundThumbnail } />
+    <div className={ `${ styles.app }` }>
+        <Background />
+        <MusicPlayer />
     </div>
 );
 
