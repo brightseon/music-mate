@@ -1,0 +1,40 @@
+.search-bar-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 40px;
+
+    .search-bar {
+        width: 40%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        border: 2px solid #FFFFFF;
+        border-radius: 20px;
+        padding: 5px 15px;
+
+        .search-box {
+            width: 90%;
+            margin-right: 5px;
+
+            .search {
+                all: unset;
+                width: 100%;
+                color: $textColor;
+                caret-color: $textColor;
+            }
+        }
+
+        .search-btn-box {
+            width: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .search-btn {
+
+            }
+        }
+    }
+}
