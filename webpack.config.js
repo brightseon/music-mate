@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const PORT = process.env.PORT || 3000;
 
@@ -57,7 +58,8 @@ const config = {
     plugins : [
         new HtmlWebpackPlugin({
             template : path.resolve(__dirname, './public/index.html')
-        })
+        }),
+        new Dotenv()
     ],
     devServer : {
         host : 'localhost',
