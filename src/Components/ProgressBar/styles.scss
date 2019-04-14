@@ -1,0 +1,23 @@
+.progress-bar {
+    width: 70%;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    
+    .line {
+        width: 100%;
+        height: 5px;
+        background-color: $whiteColor;
+        position: relative;
+        
+        .circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #C4C4C4;
+            position: absolute;
+            bottom: -75%;
+        }
+    }
+}

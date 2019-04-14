@@ -1,0 +1,18 @@
+.music-option {
+    width: 70%;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+
+    .button-box {
+        display: flex;
+
+        .repeat-button {
+            margin-right: 15px;
+        }
+
+        .random-button {
+
+        }
+    }
+}

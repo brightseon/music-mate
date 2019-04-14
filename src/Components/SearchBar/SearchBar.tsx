@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { SFC } from 'react';
 import styles from './styles.scss';
 import SearchButton from '../../../images/buttons/searchButton.svg';
 
-const Search = () => (
+const Search : SFC = () => (
     <div className={ styles.searchBarContainer }>
         <div className={ styles.searchBar }>
             <div className={ styles.searchBox }>

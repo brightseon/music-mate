@@ -1,0 +1,11 @@
+.body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .music-box {
+        flex: 1;
+        display: flex;
+    }
+}

@@ -1,13 +1,12 @@
 import React, { SFC } from 'react';
 import styles from './styles.scss';
 import Background from '../Background';
-import MusicPlayer from '../MusicPlayer';
-import Container from '../Container';
+import Body from '../Body';
 
 const App : SFC = () => (
     <div className={ `${ styles.app }` }>
         <Background />
-        <Container />
+        <Body />
     </div>
 );
 
