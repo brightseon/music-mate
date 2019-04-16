@@ -3,12 +3,17 @@ import styles from './styles.scss';
 import Thumbnail from '../Thumbnail';
 import Time from '../Time';
 
-const Item : SFC = () => (
+interface IProps {
+    title : string;
+    url : string;
+};
+
+const Item : SFC<IProps> = ({ title, url }) => (
     <div className={ styles.item }>
-        <Thumbnail className={ styles.thumbnail } />
+        <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
         <div className={ styles.musicTitleBox }>
             <span className={ styles.musicTitle }>
-                악동 뮤지션 - 오랜날 오랜밤
+                { title }
             </span>
         </div>
         <Time />
