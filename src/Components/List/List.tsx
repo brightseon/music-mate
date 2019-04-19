@@ -11,7 +11,7 @@ const List : SFC<IProps> = ({ musicList }) => (
     <div className={ styles.listBox }>
         <div className={ styles.list }>
             {
-                musicList ? musicList.map(music => <Item key={ `${ music.id.videoId }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />) : (
+                musicList ? musicList.map((music, idx) => {console.log('music : ', idx, music); return <Item key={ `${ music.id.videoId }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />}) : (
                     <>
                         <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
                         <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />

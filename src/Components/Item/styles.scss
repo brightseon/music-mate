@@ -18,6 +18,13 @@
     }
 
     .music-title-box {
+        width: 250px;
+        height: 17px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         .music-title {
             color: $textColor;
             font-weight: bold;

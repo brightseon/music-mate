@@ -20,6 +20,7 @@ export const searchMusic = (searchTerm : string) : ThunkAction<{}, {}, {}, Searc
         try {
             const newSearchTerm : string = encodeURI(searchTerm);
             const { data : { items : searchResult } } = await axios.get(`${ SEARCH_URL }${ newSearchTerm }`);
+            console.log('searchResult : ', searchResult);
             dispatch(setMusicList(searchResult));
         } catch(err) {
             console.log('search.ts searchMusic error : ', err);

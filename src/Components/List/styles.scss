@@ -1,9 +1,21 @@
 .list-box {
+    height: 100%;
     flex: 1;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        opacity: 0.5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #837F7F;
+    }
 
     .list {
         width: 100%;
-        height: 80%;
+        min-height: 100%;
         position: relative;
         
         .list-background {
@@ -18,5 +30,4 @@
             border-radius: 10px;
         }
     }
-    
 }
