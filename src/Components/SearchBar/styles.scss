@@ -18,6 +18,8 @@
             width: 90%;
             height: 100%;
             margin-right: 5px;
+            display: flex;
+            align-items: center;
 
             .search {
                 all: unset;
@@ -26,6 +28,10 @@
                 color: $textColor;
                 caret-color: $textColor;
                 font-size: 0.8em;
+            }
+
+            .clear-btn {
+
             }
         }
 

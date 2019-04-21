@@ -25,9 +25,11 @@ export interface MusicType {
     snippet : SnippetType;
 };
 
-interface IDType {
+export interface IDType {
     kind : string;
     videoId : string;
+    channelId : string;
+    playlistId : string;
 };
 
 interface SnippetType {

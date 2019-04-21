@@ -5,14 +5,15 @@ interface IProps {
     searchTerm : string;
     setSearchTerm : (searchTerm : string) => void;
     searchMusic : (searchTerm : string) => void;
-}
+    resetSearchTerm : () => void;
+};
 
 class SearchBarContainer extends Component<IProps> {
     search : ChangeEventHandler = (e : ChangeEvent<HTMLInputElement>) => {
         const { setSearchTerm } = this.props;
         const { target : { value } } = e;
 
-        setSearchTerm(value);        
+        setSearchTerm(value);
     };
 
     searchMusic : KeyboardEventHandler = (e : KeyboardEvent<HTMLInputElement>) : void => {
@@ -24,9 +25,10 @@ class SearchBarContainer extends Component<IProps> {
     };
 
     render() {
-        const { searchTerm } = this.props;
+        const { searchTerm, resetSearchTerm } = this.props;
 
-        return <SearchBarPresenter search={ this.search } searchTerm={ searchTerm } searchMusic={ this.searchMusic } />;
+        return <SearchBarPresenter search={ this.search } searchTerm={ searchTerm } searchMusic={ this.searchMusic }
+            resetSearchTerm={ resetSearchTerm } />;
     };
 };
 
