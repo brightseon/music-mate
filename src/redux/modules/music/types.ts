@@ -1,20 +1,31 @@
 // Actions
-export const SET_MUSIC_LIST = 'SET_MUSIC_LIST';
+export const SET_SEARCH_MUSIC_LIST = 'SET_SEARCH_MUSIC_LIST';
+export const ADD_MUSIC = 'ADD_MUSIC';
 
 // Initial State Type
 export interface MusicState {
-    musicList : [MusicType];
+    searchMusicList : MusicType[];
+    musicList : MusicType[];
 };
 
 // Action Types
-export interface SetMusicListAction {
-    type : typeof SET_MUSIC_LIST;
-    payload : SetMusicListPayload;
+export interface SetSearchMusicListAction {
+    type : typeof SET_SEARCH_MUSIC_LIST;
+    payload : SetSearchMusicListPayload;
+};
+
+export interface AddMusicAction {
+    type : typeof ADD_MUSIC;
+    payload : AddMusicPayload;
 };
 
 // Payload Types
-interface SetMusicListPayload {
-    musicList : [MusicType];
+interface SetSearchMusicListPayload {
+    searchMusicList : MusicType[];
+};
+
+interface AddMusicPayload {
+    addMusic : MusicType;
 };
 
 // Other Types
@@ -53,3 +64,5 @@ interface ThumbnailType {
     width : number;
     height : number;
 };
+
+export type MusicActions = SetSearchMusicListAction | AddMusicAction;

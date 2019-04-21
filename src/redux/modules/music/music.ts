@@ -1,33 +1,57 @@
-import { MusicState, SET_MUSIC_LIST, SetMusicListAction, MusicType } from "./types";
+import { 
+    MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
+    MusicActions, ADD_MUSIC, AddMusicAction 
+} from "./types";
 
 // Action
-export const setMusicList = (musicList : [MusicType]) : SetMusicListAction => {
+export const setSearchMusicList = (searchMusicList : MusicType[]) : SetSearchMusicListAction => {
     return {
-        type : SET_MUSIC_LIST,
+        type : SET_SEARCH_MUSIC_LIST,
         payload : {
-            musicList
+            searchMusicList
+        }
+    };
+};
+
+export const addMusic = (addMusic : MusicType) : AddMusicAction => {
+    return {
+        type : ADD_MUSIC,
+        payload : {
+            addMusic
         }
     };
 };
 
 const initialState : MusicState = {
-    musicList : null
+    searchMusicList : [],
+    musicList : []
 };
 
-const reducer = (state : MusicState = initialState, action : SetMusicListAction) :  MusicState => {
+const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
     switch(action.type) {
-        case SET_MUSIC_LIST : 
+        case SET_SEARCH_MUSIC_LIST : 
             return applySetMusicList(state, action);
+
+        case ADD_MUSIC : 
+            return applyAddMusic(state, action);
 
         default :
             return state;
     }
 };
 
-const applySetMusicList = (state : MusicState, action : SetMusicListAction) : MusicState => {
+const applySetMusicList = (state : MusicState, action : SetSearchMusicListAction) : MusicState => {
+    console.log('action.payload.searchMusicList : ', action.payload.searchMusicList);
     return {
         ...state,
-        musicList : action.payload.musicList
+        searchMusicList : action.payload.searchMusicList
+    };
+};
+
+const applyAddMusic = (state : MusicState, action : AddMusicAction) : MusicState => {
+    return {
+        ...state,
+        musicList : state.musicList.concat(action.payload.addMusic)
     };
 };
 

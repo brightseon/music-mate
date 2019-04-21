@@ -1,8 +1,12 @@
-import { SearchState, SET_SEARCH_TERM, SetSearchTermAction, SearchMusicAction, TOGGLE_IS_SEARCHING, ResetSearchTermAction, RESET_SEARCH_TERM } from './types';
+import { 
+    SearchState, SET_SEARCH_TERM, SetSearchTermAction, TOGGLE_IS_SEARCHING, 
+    ResetSearchTermAction, RESET_SEARCH_TERM, ToggleIsSearcingAction, SearchActions
+} from './types';
 import axios from 'axios';
 import { SEARCH_URL } from '../../../../api';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { setMusicList } from '../music/music';
+import { setSearchMusicList } from '../music/music';
+import { SetSearchMusicListAction } from '../music/types';
 
 // Actions
 export const setSearchTerm = (searchTerm : string) : SetSearchTermAction => {
@@ -20,19 +24,22 @@ export const resetSearchTerm = () : ResetSearchTermAction => {
     };
 };
 
-export const toggleIsSearching = () => {
+export const toggleIsSearching = (isSearching : boolean) : ToggleIsSearcingAction => {
     return {
-        type : TOGGLE_IS_SEARCHING
+        type : TOGGLE_IS_SEARCHING,
+        payload : {
+            isSearching
+        }
     };
 };
 
 // API Actions
-export const searchMusic = (searchTerm : string) : ThunkAction<{}, {}, {}, SearchMusicAction> => {
-    return async (dispatch : ThunkDispatch<{}, {}, SearchMusicAction>) : Promise<void> => {
+export const searchMusic = (searchTerm : string) : ThunkAction<Promise<void>, {}, {}, SetSearchMusicListAction> => {
+    return async (dispatch : ThunkDispatch<{}, {}, SetSearchMusicListAction>) : Promise<void> => {
         try {
             const newSearchTerm : string = encodeURI(searchTerm);
             const { data : { items : searchResult } } = await axios.get(`${ SEARCH_URL }${ newSearchTerm }`);
-            dispatch(setMusicList(searchResult));
+            dispatch(setSearchMusicList(searchResult));
         } catch(err) {
             console.log('search.ts searchMusic error : ', err);
         }
@@ -42,11 +49,11 @@ export const searchMusic = (searchTerm : string) : ThunkAction<{}, {}, {}, Searc
 // initialState
 const initialState : SearchState = {
     searchTerm : '',
-    isSearcing : false
+    isSearching : false
 };
 
 // Reducer
-const reducer = (state = initialState, action : SetSearchTermAction) : SearchState => {
+const reducer = (state : SearchState = initialState, action : SearchActions) : SearchState => {
     switch(action.type) {
         case SET_SEARCH_TERM : 
             return applySetSearchTerm(state, action);
@@ -55,7 +62,7 @@ const reducer = (state = initialState, action : SetSearchTermAction) : SearchSta
             return applyResetSearchTerm(state);
 
         case TOGGLE_IS_SEARCHING : 
-            return applyToggleIsSearching(state);
+            return applyToggleIsSearching(state, action);
 
         default :
             return state;
@@ -76,10 +83,10 @@ const applyResetSearchTerm = (state : SearchState) : SearchState => {
     };
 };
 
-const applyToggleIsSearching = (state : SearchState) : SearchState => {
+const applyToggleIsSearching = (state : SearchState, action : ToggleIsSearcingAction) : SearchState => {
     return {
         ...state,
-        isSearcing : !state.isSearcing
+        isSearching : action.payload.isSearching
     };
 };
 
