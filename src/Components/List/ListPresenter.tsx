@@ -25,13 +25,19 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
             <div className={ styles.list }>
                 {
                     isSearching ? (
-                        searchMusicList.map((music, idx) => {console.log('id, snippet : ', idx, music.id, music.snippet); return <Item key={ `${ returnId(music.id) }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url && music.snippet.thumbnails.default.url } addMusic={ () => addMusic(music) } />})
+                        searchMusicList.map((music, idx) => {
+                                console.log('ListPresetner.tsx searchMusicList music : ', music);
+                                return <Item key={ `${ returnId(music.id) }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url && music.snippet.thumbnails.default.url } addMusic={ () => addMusic(music) } />
+                            }
+                        )
                     ) : (
                         // <>
                         //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
                         //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
                         // </>
-                        musicList.map(music => <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />)
+                        musicList.map(music => 
+                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />
+                        )
                     )
                 }
                 <div className={ styles.listBackground }></div>

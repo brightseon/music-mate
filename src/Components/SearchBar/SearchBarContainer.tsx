@@ -19,7 +19,7 @@ class SearchBarContainer extends Component<IProps> {
             toggleIsSearching(false);
             resetSearchMusicList();
         }
-
+        
         setSearchTerm(value);
     };
 
@@ -27,7 +27,7 @@ class SearchBarContainer extends Component<IProps> {
         const { searchTerm, searchMusic, toggleIsSearching } = this.props;
         const { keyCode : enterKey } = e;
 
-        if(enterKey === 13) {
+        if(enterKey === 13 && searchTerm.length > 0) {
             searchMusic(searchTerm);
             toggleIsSearching(true);
         }
@@ -36,8 +36,10 @@ class SearchBarContainer extends Component<IProps> {
     clickSearchBtn = () => {
         const { searchTerm, searchMusic, toggleIsSearching } = this.props;
 
-        searchMusic(searchTerm);
-        toggleIsSearching(true);
+        if(searchTerm.length > 0) {
+            searchMusic(searchTerm);
+            toggleIsSearching(true);
+        }
     };
 
     resetSearchTerm = () => {
