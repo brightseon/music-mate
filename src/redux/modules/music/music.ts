@@ -13,11 +13,11 @@ export const setSearchMusicList = (searchMusicList : MusicType[]) : SetSearchMus
     };
 };
 
-export const addMusic = (addMusic : MusicType) : AddMusicAction => {
+export const addMusic = (music : MusicType) : AddMusicAction => {
     return {
         type : ADD_MUSIC,
         payload : {
-            addMusic
+            music
         }
     };
 };
@@ -51,7 +51,7 @@ const applySetMusicList = (state : MusicState, action : SetSearchMusicListAction
 const applyAddMusic = (state : MusicState, action : AddMusicAction) : MusicState => {
     return {
         ...state,
-        musicList : state.musicList.concat(action.payload.addMusic)
+        musicList : state.musicList.concat(action.payload.music)
     };
 };
 

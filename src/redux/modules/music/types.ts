@@ -25,7 +25,7 @@ interface SetSearchMusicListPayload {
 };
 
 interface AddMusicPayload {
-    addMusic : MusicType;
+    music : MusicType;
 };
 
 // Other Types
