@@ -1,6 +1,6 @@
 import { 
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
-    MusicActions, ADD_MUSIC, AddMusicAction 
+    MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction
 } from "./types";
 
 // Action
@@ -22,6 +22,12 @@ export const addMusic = (music : MusicType) : AddMusicAction => {
     };
 };
 
+export const resetSearchMusicList = () : ResetSearchMusicListAction => {
+    return {
+        type : RESET_SEARCH_MUSIC_LIST
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
     musicList : []
@@ -34,6 +40,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case ADD_MUSIC : 
             return applyAddMusic(state, action);
+
+        case RESET_SEARCH_MUSIC_LIST : 
+            return applyResetSearchMusicList(state);
 
         default :
             return state;
@@ -52,6 +61,13 @@ const applyAddMusic = (state : MusicState, action : AddMusicAction) : MusicState
     return {
         ...state,
         musicList : state.musicList.concat(action.payload.music)
+    };
+};
+
+const applyResetSearchMusicList = (state : MusicState) : MusicState => {
+    return {
+        ...state,
+        searchMusicList : []
     };
 };
 

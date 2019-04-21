@@ -1,6 +1,7 @@
 // Actions
 export const SET_SEARCH_MUSIC_LIST = 'SET_SEARCH_MUSIC_LIST';
 export const ADD_MUSIC = 'ADD_MUSIC';
+export const RESET_SEARCH_MUSIC_LIST = 'RESET_SEARCH_MUSIC_LIST';
 
 // Initial State Type
 export interface MusicState {
@@ -17,6 +18,10 @@ export interface SetSearchMusicListAction {
 export interface AddMusicAction {
     type : typeof ADD_MUSIC;
     payload : AddMusicPayload;
+};
+
+export interface ResetSearchMusicListAction {
+    type : typeof RESET_SEARCH_MUSIC_LIST;
 };
 
 // Payload Types
@@ -65,4 +70,4 @@ interface ThumbnailType {
     height : number;
 };
 
-export type MusicActions = SetSearchMusicListAction | AddMusicAction;
+export type MusicActions = SetSearchMusicListAction | AddMusicAction | ResetSearchMusicListAction;

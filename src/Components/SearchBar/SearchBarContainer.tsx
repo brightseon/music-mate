@@ -7,15 +7,17 @@ interface IProps {
     searchMusic : (searchTerm : string) => void;
     resetSearchTerm : () => void;
     toggleIsSearching : (isSearching : boolean) => void;
+    resetSearchMusicList : () => void;
 };
 
 class SearchBarContainer extends Component<IProps> {
     search : ChangeEventHandler = (e : ChangeEvent<HTMLInputElement>) => {
-        const { setSearchTerm, toggleIsSearching } = this.props;
+        const { setSearchTerm, toggleIsSearching, resetSearchMusicList } = this.props;
         const { target : { value } } = e;
 
         if(value === '') {
             toggleIsSearching(false);
+            resetSearchMusicList();
         }
 
         setSearchTerm(value);
@@ -39,10 +41,11 @@ class SearchBarContainer extends Component<IProps> {
     };
 
     resetSearchTerm = () => {
-        const { resetSearchTerm, toggleIsSearching } = this.props;
+        const { resetSearchTerm, toggleIsSearching, resetSearchMusicList } = this.props;
 
         resetSearchTerm();
         toggleIsSearching(false);
+        resetSearchMusicList();
     };
 
     render() {
