@@ -8,6 +8,7 @@ interface IProps {
     resetSearchTerm : () => void;
     toggleIsSearching : (isSearching : boolean) => void;
     resetSearchMusicList : () => void;
+    loading : (isLoading : boolean) => void;
 };
 
 class SearchBarContainer extends Component<IProps> {
@@ -24,21 +25,23 @@ class SearchBarContainer extends Component<IProps> {
     };
 
     searchMusic : KeyboardEventHandler = (e : KeyboardEvent<HTMLInputElement>) => {
-        const { searchTerm, searchMusic, toggleIsSearching } = this.props;
+        const { searchTerm, searchMusic, toggleIsSearching, loading } = this.props;
         const { keyCode : enterKey } = e;
 
         if(enterKey === 13 && searchTerm.length > 0) {
             searchMusic(searchTerm);
             toggleIsSearching(true);
+            loading(true);
         }
     };
 
     clickSearchBtn = () => {
-        const { searchTerm, searchMusic, toggleIsSearching } = this.props;
+        const { searchTerm, searchMusic, toggleIsSearching, loading } = this.props;
 
         if(searchTerm.length > 0) {
             searchMusic(searchTerm);
             toggleIsSearching(true);
+            loading(true);
         }
     };
 

@@ -50,7 +50,6 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 };
 
 const applySetMusicList = (state : MusicState, action : SetSearchMusicListAction) : MusicState => {
-    console.log('action.payload.searchMusicList : ', action.payload.searchMusicList);
     return {
         ...state,
         searchMusicList : action.payload.searchMusicList

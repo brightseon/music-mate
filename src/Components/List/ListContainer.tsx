@@ -7,9 +7,20 @@ interface IProps {
     musicList : [MusicType];
     searchMusicList : [MusicType];
     addMusic : (music : MusicType) => void;
+    isLoading : boolean;
 };
 
 class ListContainer extends Component<IProps> {
+    shouldComponentUpdate = (nextProps : IProps) : boolean => {
+        const { musicList, searchMusicList, isLoading } = this.props;
+
+        if(nextProps.musicList !== musicList || nextProps.searchMusicList !== searchMusicList || nextProps.isLoading !== isLoading) {
+            return true;
+        }
+
+        return false;
+    };
+
     addMusic = (music : MusicType) => {
         const { addMusic } = this.props;
 
@@ -17,10 +28,10 @@ class ListContainer extends Component<IProps> {
     };
 
     render() {
-        const { isSearching, musicList, searchMusicList } = this.props;
+        const { isSearching, musicList, searchMusicList, isLoading } = this.props;
 
         return <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
-            addMusic={ this.addMusic } />;
+            addMusic={ this.addMusic } isLoading={ isLoading } />;
     };
 };
 

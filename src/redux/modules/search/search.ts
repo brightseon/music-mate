@@ -7,6 +7,8 @@ import { SEARCH_URL } from '../../../../api';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { setSearchMusicList } from '../music/music';
 import { SetSearchMusicListAction } from '../music/types';
+import { loading } from '../loading/loading';
+import { LoadingAction } from '../loading/types';
 
 // Actions
 export const setSearchTerm = (searchTerm : string) : SetSearchTermAction => {
@@ -34,14 +36,17 @@ export const toggleIsSearching = (isSearching : boolean) : ToggleIsSearcingActio
 };
 
 // API Actions
-export const searchMusic = (searchTerm : string) : ThunkAction<Promise<void>, {}, {}, SetSearchMusicListAction> => {
-    return async (dispatch : ThunkDispatch<{}, {}, SetSearchMusicListAction>) : Promise<void> => {
+export const searchMusic = (searchTerm : string) : ThunkAction<Promise<void>, {}, {}, SetSearchMusicListAction | LoadingAction> => {
+    return async (dispatch : ThunkDispatch<{}, {}, SetSearchMusicListAction | LoadingAction>) : Promise<void> => {
         try {
             const newSearchTerm : string = encodeURI(searchTerm);
             const { data : { items : searchResult } } = await axios.get(`${ SEARCH_URL }${ newSearchTerm }`);
             dispatch(setSearchMusicList(searchResult));
         } catch(err) {
             console.log('search.ts searchMusic error : ', err);
+        } finally {
+            console.log('searchMusic finally')
+            dispatch(loading(false));
         }
     };
 };
