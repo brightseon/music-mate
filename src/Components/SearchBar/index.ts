@@ -25,11 +25,13 @@ interface IMapDispatchToProps {
     loading : (isLoading : boolean) => void;
 };
 
+type DispatchActions = SearchActions | ResetSearchMusicListAction | LoadingAction;
+
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     searchTerm : state.search.searchTerm
 });
 
-const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, SearchActions | ResetSearchMusicListAction | LoadingAction>) : IMapDispatchToProps => ({
+const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispatchActions>) : IMapDispatchToProps => ({
     setSearchTerm : (searchTerm : string) => dispatch(setSearchTerm(searchTerm)),
     searchMusic : (searchTerm : string) => dispatch(searchMusic(searchTerm)),
     resetSearchTerm : () => dispatch(resetSearchTerm()),

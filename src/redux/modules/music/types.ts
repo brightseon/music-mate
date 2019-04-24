@@ -2,11 +2,13 @@
 export const SET_SEARCH_MUSIC_LIST = 'SET_SEARCH_MUSIC_LIST';
 export const ADD_MUSIC = 'ADD_MUSIC';
 export const RESET_SEARCH_MUSIC_LIST = 'RESET_SEARCH_MUSIC_LIST';
+export const SET_NEXT_PAGE_TOKEN = 'SET_NEXT_PAGE_TOKEN';
 
 // Initial State Type
 export interface MusicState {
     searchMusicList : MusicType[];
     musicList : MusicType[];
+    nextPageToken : string;
 };
 
 // Action Types
@@ -24,6 +26,11 @@ export interface ResetSearchMusicListAction {
     type : typeof RESET_SEARCH_MUSIC_LIST;
 };
 
+export interface SetNextPageTokenAction {
+    type : typeof SET_NEXT_PAGE_TOKEN;
+    payload : SetNextPageTokenPayload;
+};
+
 // Payload Types
 interface SetSearchMusicListPayload {
     searchMusicList : MusicType[];
@@ -31,6 +38,10 @@ interface SetSearchMusicListPayload {
 
 interface AddMusicPayload {
     music : MusicType;
+};
+
+interface SetNextPageTokenPayload {
+    nextPageToken : string;
 };
 
 // Other Types
@@ -70,4 +81,4 @@ interface ThumbnailType {
     height : number;
 };
 
-export type MusicActions = SetSearchMusicListAction | AddMusicAction | ResetSearchMusicListAction;
+export type MusicActions = SetSearchMusicListAction | AddMusicAction | ResetSearchMusicListAction | SetNextPageTokenAction;

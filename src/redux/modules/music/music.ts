@@ -1,6 +1,7 @@
 import { 
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
-    MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction
+    MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
+    SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN
 } from "./types";
 
 // Action
@@ -28,9 +29,19 @@ export const resetSearchMusicList = () : ResetSearchMusicListAction => {
     };
 };
 
+export const setNextPageToken = (nextPageToken : string) : SetNextPageTokenAction => {
+    return {
+        type : SET_NEXT_PAGE_TOKEN,
+        payload : {
+            nextPageToken
+        }
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
-    musicList : []
+    musicList : [],
+    nextPageToken : ''
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -44,6 +55,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
         case RESET_SEARCH_MUSIC_LIST : 
             return applyResetSearchMusicList(state);
 
+        case SET_NEXT_PAGE_TOKEN : 
+            return applySetNextPageToken(state, action);
+
         default :
             return state;
     }
@@ -52,7 +66,7 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 const applySetMusicList = (state : MusicState, action : SetSearchMusicListAction) : MusicState => {
     return {
         ...state,
-        searchMusicList : action.payload.searchMusicList
+        searchMusicList : state.searchMusicList.concat(action.payload.searchMusicList)
     };
 };
 
@@ -67,6 +81,13 @@ const applyResetSearchMusicList = (state : MusicState) : MusicState => {
     return {
         ...state,
         searchMusicList : []
+    };
+};
+
+const applySetNextPageToken = (state : MusicState, action : SetNextPageTokenAction) : MusicState => {
+    return {
+        ...state,
+        nextPageToken : action.payload.nextPageToken
     };
 };
 

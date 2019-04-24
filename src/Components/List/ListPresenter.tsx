@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { SFC, Ref } from 'react';
 import styles from './styles.scss';
 import Item from '../Item';
 import Loading from '../Loading';
@@ -9,7 +9,8 @@ interface IProps {
     musicList : [MusicType];
     isSearching : boolean;
     addMusic : (music : MusicType) => void;
-    isLoading : boolean;
+    listBoxRef : Ref<HTMLDivElement>;
+    listRef : Ref<HTMLDivElement>;
 };
 
 const returnId = (idObj : IDType) : string => {
@@ -20,25 +21,26 @@ const returnId = (idObj : IDType) : string => {
     if(idObj.playlistId) return idObj.playlistId;
 };
 
-const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, addMusic, isLoading }) => (
-    <div className={ styles.listBox }>
-        <div className={ styles.list }>
+const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, addMusic, listBoxRef, listRef }) => (
+    <div className={ styles.listBox } ref={ listBoxRef }>
+        <div className={ styles.list } ref={ listRef }>
             {
-                isLoading ? <Loading /> : (
-                    isSearching ? (
-                        searchMusicList.map((music, idx) => {
-                                console.log('ListPresetner.tsx searchMusicList music : ', music);
-                                return <Item key={ `${ returnId(music.id) }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url && music.snippet.thumbnails.default.url } addMusic={ () => addMusic(music) } />
-                            }
-                        )
-                    ) : (
-                        // <>
-                        //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
-                        //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
-                        // </>
-                        musicList.map(music => 
-                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />
-                        )
+                isSearching ? (
+                    <>
+                        {
+                            searchMusicList.map(music => 
+                                <Item key={ `${ returnId(music.id) }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url && music.snippet.thumbnails.default.url } addMusic={ () => addMusic(music) } />
+                            )
+                        }
+                        <Loading />
+                    </>
+                ) : (
+                    // <>
+                    //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
+                    //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
+                    // </>
+                    musicList.map(music => 
+                        <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />
                     )
                 )
             }
