@@ -4,7 +4,7 @@ import { MusicType, MusicState, AddMusicAction } from '../../redux/modules/music
 import { SearchState } from '../../redux/modules/search/types';
 import { addMusic } from '../../redux/modules/music/music';
 import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
-import { nextSearchMusicList } from '../../redux/modules/search/search';
+import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
 import { loading } from '../../redux/modules/loading/loading';
 
@@ -23,7 +23,7 @@ interface IMapStateToProps {
 
 interface IMapDispatchToProps {
     addMusic : (music : MusicType) => void;
-    nextSearchMusicList : (nextPageToken : string) => void;
+    searchMusic : (searchTerm : string, nextPageToken? : string) => void;
     loading : (isLoading : boolean) => void;
 };
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state : IState) : IMapStateToProps => ({
 
 const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) : IMapDispatchToProps => ({
     addMusic : (music : MusicType) => dispatch(addMusic(music)),
-    nextSearchMusicList : (nextPageToken : string) => dispatch(nextSearchMusicList(nextPageToken)),
+    searchMusic : (searchTerm : string, nextPageToken? : string) => dispatch(searchMusic(searchTerm, nextPageToken)),
     loading : (isLoading : boolean) => dispatch(loading(isLoading))
 });
 

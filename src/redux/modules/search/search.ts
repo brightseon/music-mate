@@ -6,7 +6,7 @@ import axios from 'axios';
 import { SEARCH_URL, AMPERSAND, QUERY, EQUAL, PAGE_TOKEN } from '../../../../api';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { setSearchMusicList, setNextPageToken } from '../music/music';
-import { SetSearchMusicListAction, SetNextPageTokenAction, MusicState } from '../music/types';
+import { SetSearchMusicListAction, SetNextPageTokenAction } from '../music/types';
 import { loading } from '../loading/loading';
 import { LoadingAction } from '../loading/types';
 
@@ -35,39 +35,31 @@ export const toggleIsSearching = (isSearching : boolean) : ToggleIsSearcingActio
     };
 };
 
-
 // API Actions
 type SearchTypeActions = SetSearchMusicListAction | LoadingAction | SetNextPageTokenAction;
 const URL = `${ SEARCH_URL }${ AMPERSAND }${ QUERY }${ EQUAL }`;
 
-export const searchMusic = (searchTerm : string) : ThunkAction<Promise<void>, {}, {}, SearchTypeActions> => {
-    return async (dispatch : ThunkDispatch<{}, {}, SearchTypeActions>) : Promise<void> => {
+export const searchMusic = (searchTerm : string, pageToken? : string) : ThunkAction<Promise<void>, {}, {}, SearchTypeActions> => {
+    return async (dispatch : ThunkDispatch<{}, {}, SearchTypeActions>, getState : () => GetSearchState) : Promise<void> => {
         try {
-            const newSearchTerm : string = encodeURI(searchTerm);
-            const { data } = await axios.get(`${ URL }${ newSearchTerm }`);
+            let data;
+
+            if(searchTerm) {
+                const newSearchTerm = encodeURI(searchTerm);
+                const { data : result } = await axios.get(`${ URL }${ newSearchTerm }`);
+                data = result;
+            } else if(pageToken) {
+                const { search : { searchTerm } } : GetSearchState = getState();
+                const { data : result } = await axios.get(`${ URL }${ encodeURI(searchTerm) }${ AMPERSAND }${ PAGE_TOKEN }${ EQUAL }${ pageToken }`);
+                data = result;
+            }
+            
             const { nextPageToken, items : searchResult } = data;
 
             dispatch(setNextPageToken(nextPageToken));
             dispatch(setSearchMusicList(searchResult));
         } catch(err) {
             console.log('search.ts searchMusic error : ', err);
-        } finally {
-            dispatch(loading(false));
-        }
-    };
-};
-
-export const nextSearchMusicList = (pageToken : string) : ThunkAction<Promise<void>, {}, {}, SearchTypeActions> => {
-    return async (dispatch : ThunkDispatch<{}, {}, SearchTypeActions>, getState : () => GetSearchState) : Promise<void> => {
-        try {
-            const { search : { searchTerm } } : GetSearchState = getState();
-            const { data } = await axios.get(`${ URL }${ encodeURI(searchTerm) }${ AMPERSAND }${ PAGE_TOKEN }${ EQUAL }${ pageToken }`);
-            const { nextPageToken, items : searchResult } = data;
-
-            dispatch(setNextPageToken(nextPageToken));
-            dispatch(setSearchMusicList(searchResult));
-        } catch(err) {
-            console.log('search.ts nextSearchMusicList error : ', err);
         } finally {
             dispatch(loading(false));
         }

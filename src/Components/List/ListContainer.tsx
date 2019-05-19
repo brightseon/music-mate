@@ -7,7 +7,7 @@ interface IProps {
     musicList : [MusicType];
     searchMusicList : [MusicType];
     addMusic : (music : MusicType) => void;
-    nextSearchMusicList : (nextPageToken : string) => void;
+    searchMusic : (searchTerm : string, nextPageToken? : string) => void;
     nextPageToken : string;
     loading : (isLoading : boolean) => void;
 };
@@ -47,10 +47,10 @@ class ListContainer extends Component<IProps> {
         let clientHeight = listBoxRef.clientHeight;
 
         if(scrollTop + clientHeight === scrollHeight) {
-            const { nextSearchMusicList, nextPageToken, loading } = this.props;
+            const { searchMusic, nextPageToken, loading } = this.props;
 
             loading(true);
-            nextSearchMusicList(nextPageToken);
+            searchMusic(null, nextPageToken);
         }
     };
 
