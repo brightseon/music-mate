@@ -59,7 +59,9 @@ const config = {
         new HtmlWebpackPlugin({
             template : path.resolve(__dirname, './public/index.html')
         }),
-        new Dotenv()
+        new Dotenv({
+            systemvars : true
+        })
     ],
     devServer : {
         host : 'localhost',
