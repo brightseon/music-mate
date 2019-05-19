@@ -44,5 +44,6 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build" : "webpack"
-  }
+  },
+  "homepage": "https://practical-spence-8904dd.netlify.com"
 }
