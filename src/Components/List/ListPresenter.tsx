@@ -44,7 +44,7 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
                     ) : (
                         <div className={ styles.emptyMusicListBox }>
                             <span>재생 가능한 노래가 없습니다.</span>
-                            <span>검색을 통해 노래를 추가해 주세요.</span>
+                            <span className={ styles.last }>검색을 통해 노래를 추가해 주세요.</span>
                         </div>
                     )
                 )

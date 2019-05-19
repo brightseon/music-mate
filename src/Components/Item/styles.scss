@@ -32,6 +32,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            user-select: none;
     
             .music-title {
                 color: $textColor;
@@ -44,6 +45,7 @@
     .add-music-btn {
         width: 10px;
         height: 10px;
+        user-select: none;
         
         & > img {
             display: none;

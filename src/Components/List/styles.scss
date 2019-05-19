@@ -26,6 +26,10 @@
             justify-content: center;
             color: $textColor;
             user-select: none;
+
+            .last {
+                margin-top: 5px;
+            }
         }
         
         .list-background {

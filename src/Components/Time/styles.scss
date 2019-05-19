@@ -1,4 +1,6 @@
 .time-box {
+    user-select: none;
+    
     .time {
         color: $timeColor;
         font-size: 0.8em;
