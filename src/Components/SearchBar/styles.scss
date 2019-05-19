@@ -30,8 +30,22 @@
                 font-size: 0.8em;
             }
 
-            .clear-btn {
+            .clear-btn-box {
+                width: 10px;
+                height: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
+                .clear-btn {
+                    width: 100%;
+                    height: 100%;
+                    display: none;
+                }
+            }
+
+            &:hover > .clear-btn-box > .clear-btn {
+                display: block;
             }
         }
 

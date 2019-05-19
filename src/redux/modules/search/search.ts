@@ -1,6 +1,6 @@
 import { 
     SearchState, SET_SEARCH_TERM, SetSearchTermAction, TOGGLE_IS_SEARCHING, 
-    ResetSearchTermAction, RESET_SEARCH_TERM, ToggleIsSearcingAction, SearchActions
+    ResetSearchTermAction, RESET_SEARCH_TERM, ToggleIsSearcingAction, SearchActions, GetSearchState
 } from './types';
 import axios from 'axios';
 import { SEARCH_URL, AMPERSAND, QUERY, EQUAL, PAGE_TOKEN } from '../../../../api';
@@ -58,9 +58,9 @@ export const searchMusic = (searchTerm : string) : ThunkAction<Promise<void>, {}
 };
 
 export const nextSearchMusicList = (pageToken : string) : ThunkAction<Promise<void>, {}, {}, SearchTypeActions> => {
-    return async (dispatch : ThunkDispatch<{}, {}, SearchTypeActions>, getState : () => SearchState) : Promise<void> => {
+    return async (dispatch : ThunkDispatch<{}, {}, SearchTypeActions>, getState : () => GetSearchState) : Promise<void> => {
         try {
-            const { searchTerm } = getState();
+            const { search : { searchTerm } } : GetSearchState = getState();
             const { data } = await axios.get(`${ URL }${ encodeURI(searchTerm) }${ AMPERSAND }${ PAGE_TOKEN }${ EQUAL }${ pageToken }`);
             const { nextPageToken, items : searchResult } = data;
 

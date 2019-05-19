@@ -12,30 +12,38 @@
         background-color: #ECF0F1;
     }
 
-    .thumbnail {
-        width: 47px;
-        height: 37px;
-        border-radius: 10px;
-    }
+    .music-info {
+        flex: 1;
+        display: flex;
+        align-items: center;
 
-    .music-title-box {
-        width: 250px;
-        height: 17px;
-        text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        .music-title {
-            color: $textColor;
-            font-weight: bold;
-            font-size: 0.8em;
+        .thumbnail {
+            width: 47px;
+            height: 37px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+    
+        .music-title-box {
+            flex: 1;
+            width: 250px;
+            height: 17px;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+    
+            .music-title {
+                color: $textColor;
+                font-weight: bold;
+                font-size: 0.8em;
+            }
         }
     }
 
     .add-music-btn {
-        width: 20px;
-        height: 20px;
+        width: 10px;
+        height: 10px;
         
         & > img {
             display: none;

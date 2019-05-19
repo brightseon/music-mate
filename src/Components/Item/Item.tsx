@@ -14,11 +14,13 @@ interface IProps {
 
 const Item : SFC<IProps> = ({ title, url, isSearching, addMusic }) => (
     <div className={ styles.item }>
-        <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
-        <div className={ styles.musicTitleBox }>
-            <span className={ styles.musicTitle }>
-                { title }
-            </span>
+        <div className={ styles.musicInfo }>
+            <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
+            <div className={ styles.musicTitleBox }>
+                <span className={ styles.musicTitle }>
+                    { title }
+                </span>
+            </div>
         </div>
         {
             isSearching ? <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } /> : <Time />

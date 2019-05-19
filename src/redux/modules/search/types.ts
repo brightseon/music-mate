@@ -35,3 +35,8 @@ interface ToggleIsSearchingPayload {
 };
 
 export type SearchActions = SetSearchTermAction | ResetSearchTermAction | ToggleIsSearcingAction;
+
+// etc
+export interface GetSearchState {
+    search : SearchState;
+}
