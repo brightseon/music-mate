@@ -29,18 +29,16 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
                     <>
                         {
                             searchMusicList.map(music => 
-                                <Item key={ `${ returnId(music.id) }` } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url && music.snippet.thumbnails.default.url } addMusic={ () => addMusic(music) } />
+                                <Item key={ `${ music.snippet.channelId }_${ returnId(music.id) }` } title={ music.snippet.title } 
+                                    url={ music.snippet.thumbnails.medium.url ? music.snippet.thumbnails.medium.url : music.snippet.thumbnails.default.url } 
+                                    addMusic={ () => addMusic(music) } />
                             )
                         }
                         <Loading />
                     </>
                 ) : (
-                    // <>
-                    //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
-                    //     <Item title={ '악동 뮤지션 - 오랜날 오랜밤' } url={ '' } />
-                    // </>
                     musicList.map(music => 
-                        <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.default.url } />
+                        <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url } />
                     )
                 )
             }

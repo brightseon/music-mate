@@ -1,7 +1,7 @@
 import { 
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
     MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
-    SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN
+    SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM
 } from "./types";
 
 // Action
@@ -38,6 +38,15 @@ export const setNextPageToken = (nextPageToken : string) : SetNextPageTokenActio
     };
 };
 
+export const removeSearchItem = (id : string) : RemoveSearchItemAction => {
+    return {
+        type : REMOVE_SEARCH_ITEM,
+        payload : {
+            id
+        }
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
     musicList : [],
@@ -57,6 +66,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_NEXT_PAGE_TOKEN : 
             return applySetNextPageToken(state, action);
+
+        case REMOVE_SEARCH_ITEM : 
+            return applyRemoveSearchItem(state, action);
 
         default :
             return state;
@@ -88,6 +100,13 @@ const applySetNextPageToken = (state : MusicState, action : SetNextPageTokenActi
     return {
         ...state,
         nextPageToken : action.payload.nextPageToken
+    };
+};
+
+const applyRemoveSearchItem = (state : MusicState, action : RemoveSearchItemAction) : MusicState => {
+    return {
+        ...state,
+        searchMusicList : state.searchMusicList.filter(searchMusic => searchMusic.id.videoId !== action.payload.id)
     };
 };
 

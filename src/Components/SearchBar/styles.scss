@@ -45,6 +45,7 @@
             }
 
             &:hover > .clear-btn-box > .clear-btn {
+                @include viewResetButtonMixin();
                 display: block;
             }
         }

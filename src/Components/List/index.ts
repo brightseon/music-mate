@@ -1,8 +1,8 @@
 import List from './ListContainer';
 import { connect } from 'react-redux';
-import { MusicType, MusicState, AddMusicAction } from '../../redux/modules/music/types';
+import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction } from '../../redux/modules/music/types';
 import { SearchState } from '../../redux/modules/search/types';
-import { addMusic } from '../../redux/modules/music/music';
+import { addMusic, removeSearchItem } from '../../redux/modules/music/music';
 import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
 import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
@@ -25,9 +25,10 @@ interface IMapDispatchToProps {
     addMusic : (music : MusicType) => void;
     searchMusic : (searchTerm : string, nextPageToken? : string) => void;
     loading : (isLoading : boolean) => void;
+    removeSearchItem : (id : string) => void;
 };
 
-type DispathcActions = AddMusicAction | LoadingAction;
+type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction;
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     searchMusicList : state.music.searchMusicList,
@@ -39,7 +40,8 @@ const mapStateToProps = (state : IState) : IMapStateToProps => ({
 const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) : IMapDispatchToProps => ({
     addMusic : (music : MusicType) => dispatch(addMusic(music)),
     searchMusic : (searchTerm : string, nextPageToken? : string) => dispatch(searchMusic(searchTerm, nextPageToken)),
-    loading : (isLoading : boolean) => dispatch(loading(isLoading))
+    loading : (isLoading : boolean) => dispatch(loading(isLoading)),
+    removeSearchItem : (id : string) => dispatch(removeSearchItem(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

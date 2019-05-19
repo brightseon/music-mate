@@ -3,7 +3,6 @@ export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const SEARCH_MUSIC = 'SEARCH_MUSIC';
 export const RESET_SEARCH_TERM = 'RESET_SEARCH_TERM';
 export const TOGGLE_IS_SEARCHING = 'TOGGLE_IS_SEARCHING';
-export const REMOVE_SEARCH_ITEM = 'REMOVE_SEARCH_ITEM';
 
 // Initial State Type
 export interface SearchState {
@@ -33,10 +32,6 @@ interface SetSearchTermPayload {
 
 interface ToggleIsSearchingPayload {
     isSearching : boolean;
-};
-
-interface ReomveSearchItemPayload {
-    
 };
 
 export type SearchActions = SetSearchTermAction | ResetSearchTermAction | ToggleIsSearcingAction;

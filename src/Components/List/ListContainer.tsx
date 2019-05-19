@@ -10,6 +10,7 @@ interface IProps {
     searchMusic : (searchTerm : string, nextPageToken? : string) => void;
     nextPageToken : string;
     loading : (isLoading : boolean) => void;
+    removeSearchItem : (id : string) => void;
 };
 
 class ListContainer extends Component<IProps> {
@@ -55,9 +56,10 @@ class ListContainer extends Component<IProps> {
     };
 
     addMusic = (music : MusicType) => {
-        const { addMusic } = this.props;
+        const { addMusic, removeSearchItem } = this.props;
 
         addMusic(music);
+        removeSearchItem(music.id.videoId);
     };
 
     render() {

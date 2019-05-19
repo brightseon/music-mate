@@ -26,7 +26,7 @@
     
         .music-title-box {
             flex: 1;
-            width: 250px;
+            width: 10px;
             height: 17px;
             text-align: left;
             overflow: hidden;
@@ -48,10 +48,10 @@
         & > img {
             display: none;
         }
-
     }
     
     &:hover > .add-music-btn > img {
+        @include viewResetButtonMixin();
         display: block;
     }
 }
