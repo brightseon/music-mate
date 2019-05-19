@@ -4,9 +4,15 @@ import Thumbnail from '../Thumbnail';
 import MusicControl from '../MusicControl';
 import ProgressBar from '../ProgressBar';
 import MusicOption from '../MusicOption';
+import { MUSIC_PLAY_URL } from '../../../api';
 
-const MusicPlayer : SFC = () => (
+interface IProps {
+    videoId : string;
+};
+
+const MusicPlayer : SFC<IProps> = ({ videoId }) => (
     <div className={ styles.musicPlayer }>
+        <iframe className={ styles.hiddenPlayer } src={ `${ MUSIC_PLAY_URL }${ videoId }` } />
         <div className={ styles.thumbnailBox }>
             <Thumbnail className={ `${ styles.mediumThumbnail } ${ styles.thumbnail }` } />
         </div>

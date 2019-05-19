@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+
+    .hidden-player {
+        display: none;
+    }
     
     .thumbnail-box {
         width: 70%;

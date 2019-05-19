@@ -10,13 +10,23 @@
 
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background-color: #837F7F;
+        background-color: #DCDDE1;
     }
 
     .list {
         width: 100%;
         min-height: 100%;
         position: relative;
+
+        .empty-music-list-box {
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: $textColor;
+            user-select: none;
+        }
         
         .list-background {
             background-color: $whiteColor;

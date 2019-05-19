@@ -37,8 +37,15 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
                         <Loading />
                     </>
                 ) : (
-                    musicList.map(music => 
-                        <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url } />
+                    musicList.length > 0 ? (
+                        musicList.map(music => 
+                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url } />
+                        )
+                    ) : (
+                        <div className={ styles.emptyMusicListBox }>
+                            <span>재생 가능한 노래가 없습니다.</span>
+                            <span>검색을 통해 노래를 추가해 주세요.</span>
+                        </div>
                     )
                 )
             }
