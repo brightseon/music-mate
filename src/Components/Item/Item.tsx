@@ -21,7 +21,7 @@ const Item : SFC<IProps> = ({ title, url, isSearching, addMusic }) => (
             </span>
         </div>
         {
-            isSearching ? <Button className={ '' } buttonName={ AddButton } clickEvent={ addMusic } /> : <Time />
+            isSearching ? <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } /> : <Time />
         }
     </div>
 );

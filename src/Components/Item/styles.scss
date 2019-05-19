@@ -32,4 +32,18 @@
             font-size: 0.8em;
         }
     }
+
+    .add-music-btn {
+        width: 20px;
+        height: 20px;
+        
+        & > img {
+            display: none;
+        }
+
+    }
+    
+    &:hover > .add-music-btn > img {
+        display: block;
+    }
 }
