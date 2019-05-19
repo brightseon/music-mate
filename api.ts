@@ -1,5 +1,5 @@
 const API_URL : string = 'https://www.googleapis.com/youtube/v3';
-const YOUTUBE_URL : string = 'http://www.youtube.com/embed/';
+const YOUTUBE_URL : string = 'https://www.youtube.com/embed/';
 const KEY : string = process.env.API_KEY;
 const MAX_RESULTS : number = 20;
 export const AMPERSAND = '&';

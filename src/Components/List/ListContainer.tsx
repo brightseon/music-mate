@@ -11,6 +11,7 @@ interface IProps {
     nextPageToken : string;
     loading : (isLoading : boolean) => void;
     removeSearchItem : (id : string) => void;
+    setCurrentPlay : (music : MusicType) => void;
 };
 
 class ListContainer extends Component<IProps> {
@@ -62,11 +63,19 @@ class ListContainer extends Component<IProps> {
         removeSearchItem(music.id.videoId);
     };
 
+    playMusic = (music : MusicType) => {
+        const { setCurrentPlay } = this.props;
+
+        setCurrentPlay(music);
+    };
+
     render() {
         const { isSearching, musicList, searchMusicList } = this.props;
 
-        return <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
-            addMusic={ this.addMusic } listBoxRef={ this.listBoxRef } listRef={ this.listRef } />;
+        return (
+            <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
+                addMusic={ this.addMusic } listBoxRef={ this.listBoxRef } listRef={ this.listRef } playMusic={ this.playMusic } />
+        );
     };
 };
 

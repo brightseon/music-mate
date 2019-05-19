@@ -10,13 +10,14 @@ interface IProps {
     url : string;
     isSearching : boolean;
     addMusic? : (e : MouseEvent<HTMLDivElement>) => void;
+    playMusic? : () => void;
 };
 
-const Item : SFC<IProps> = ({ title, url, isSearching, addMusic }) => (
-    <div className={ styles.item }>
+const Item : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic }) => (
+    <div className={ styles.item } onClick={ playMusic }>
         <div className={ styles.musicInfo }>
             <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
-            <div className={ styles.musicTitleBox }>
+            <div className={ styles.musicTitleBox } title={ title }>
                 <span className={ styles.musicTitle }>
                     { title }
                 </span>

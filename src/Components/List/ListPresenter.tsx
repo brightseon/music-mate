@@ -11,6 +11,7 @@ interface IProps {
     addMusic : (music : MusicType) => void;
     listBoxRef : Ref<HTMLDivElement>;
     listRef : Ref<HTMLDivElement>;
+    playMusic : (music : MusicType) => void;
 };
 
 const returnId = (idObj : IDType) : string => {
@@ -21,7 +22,7 @@ const returnId = (idObj : IDType) : string => {
     if(idObj.playlistId) return idObj.playlistId;
 };
 
-const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, addMusic, listBoxRef, listRef }) => (
+const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, addMusic, listBoxRef, listRef, playMusic }) => (
     <div className={ styles.listBox } ref={ listBoxRef }>
         <div className={ styles.list } ref={ listRef }>
             {
@@ -39,7 +40,8 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
                 ) : (
                     musicList.length > 0 ? (
                         musicList.map(music => 
-                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url } />
+                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url }
+                                playMusic={ () => playMusic(music) } />
                         )
                     ) : (
                         <div className={ styles.emptyMusicListBox }>

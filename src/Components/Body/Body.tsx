@@ -8,7 +8,7 @@ const Body : SFC = () => (
     <div className={ styles.body }>
         <SearchBar />
         <div className={ styles.musicBox }>
-            <MusicPlayer videoId={ '' } />
+            <MusicPlayer />
             <List />
         </div>
     </div>

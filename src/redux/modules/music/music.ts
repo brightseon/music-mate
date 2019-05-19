@@ -1,7 +1,8 @@
 import { 
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
     MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
-    SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM
+    SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM, 
+    SetCurrentPlayAction, SET_CURRENT_PLAY
 } from "./types";
 
 // Action
@@ -47,10 +48,20 @@ export const removeSearchItem = (id : string) : RemoveSearchItemAction => {
     };
 };
 
+export const setCurrentPlay = (music : MusicType) : SetCurrentPlayAction => {
+    return {
+        type : SET_CURRENT_PLAY,
+        payload : {
+            music
+        }
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
     musicList : [],
-    nextPageToken : ''
+    nextPageToken : '',
+    currentPlay : null
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -69,6 +80,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case REMOVE_SEARCH_ITEM : 
             return applyRemoveSearchItem(state, action);
+
+        case SET_CURRENT_PLAY :
+            return applySetCurrentPlay(state, action);
 
         default :
             return state;
@@ -108,6 +122,13 @@ const applyRemoveSearchItem = (state : MusicState, action : RemoveSearchItemActi
         ...state,
         searchMusicList : state.searchMusicList.filter(searchMusic => searchMusic.id.videoId !== action.payload.id)
     };
+};
+
+const applySetCurrentPlay = (state : MusicState, action : SetCurrentPlayAction) : MusicState => {
+    return {
+        ...state,
+        currentPlay : action.payload.music
+    }
 };
 
 export default reducer;
