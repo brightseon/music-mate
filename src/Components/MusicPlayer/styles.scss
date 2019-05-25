@@ -3,8 +3,14 @@
     flex-direction: column;
     flex: 1;
 
-    .hidden-player {
-        display: none;
+    .hidden-player-container {
+        height: 0px;
+
+        .hidden-player {
+            width: 0px;
+            height: 0px;
+            // visibility: hidden;
+        }
     }
     
     .thumbnail-box {

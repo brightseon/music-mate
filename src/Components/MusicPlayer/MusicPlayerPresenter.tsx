@@ -11,25 +11,25 @@ import YouTube, { Options } from 'react-youtube';
 interface IProps {
     currentPlay : MusicType;
     musicPlay : (e : any) => void;
+    player : any
 };
 
 const opts : Options = {
     playerVars : {
-        origin : MUSIC_PLAY_URL,
         autoplay : 1,
-        enablejsapi : 1
+        enablejsapi : 1,
+        controls : 0
     }
 };
 
-const MusicPlayerPresenter : SFC<IProps> = ({ currentPlay, musicPlay }) => (
+const MusicPlayerPresenter : SFC<IProps> = ({ currentPlay, musicPlay, player }) => (
     <div className={ styles.musicPlayer }>
-        {/* { currentPlay && <iframe className={ styles.hiddenPlayer } src={ `${ MUSIC_PLAY_URL }${ currentPlay.id.videoId }?autoplay=1` } /> } */}
-        { currentPlay && <YouTube className={ styles.hiddenPlayer } videoId={ currentPlay.id.videoId } opts={ opts } onReady={ musicPlay } /> }
+        { currentPlay && <YouTube containerClassName={ styles.hiddenPlayerContainer } className={ styles.hiddenPlayer } videoId={ currentPlay.id.videoId } opts={ opts } onReady={ musicPlay } /> }
         <div className={ styles.thumbnailBox }>
             <Thumbnail className={ `${ styles.mediumThumbnail } ${ styles.thumbnail }` } />
         </div>
-        <MusicControl />
-        <ProgressBar />
+        <MusicControl player={ player } />
+        <ProgressBar player={ player } />
         <MusicOption />
     </div>
 );

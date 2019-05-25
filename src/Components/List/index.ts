@@ -1,8 +1,8 @@
 import List from './ListContainer';
 import { connect } from 'react-redux';
-import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction, SetCurrentPlayAction } from '../../redux/modules/music/types';
+import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction, SetCurrentPlayAction, SetPlayerStateAction } from '../../redux/modules/music/types';
 import { SearchState } from '../../redux/modules/search/types';
-import { addMusic, removeSearchItem, setCurrentPlay } from '../../redux/modules/music/music';
+import { addMusic, removeSearchItem, setCurrentPlay, setPlayerState } from '../../redux/modules/music/music';
 import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
 import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
@@ -27,9 +27,10 @@ interface IMapDispatchToProps {
     loading : (isLoading : boolean) => void;
     removeSearchItem : (id : string) => void;
     setCurrentPlay : (music : MusicType) => void;
+    setPlayerState : (playerState : number) => void;
 };
 
-type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction | SetCurrentPlayAction;
+type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction | SetCurrentPlayAction | SetPlayerStateAction;
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     searchMusicList : state.music.searchMusicList,
@@ -43,7 +44,8 @@ const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) :
     searchMusic : (searchTerm : string, nextPageToken? : string) => dispatch(searchMusic(searchTerm, nextPageToken)),
     loading : (isLoading : boolean) => dispatch(loading(isLoading)),
     removeSearchItem : (id : string) => dispatch(removeSearchItem(id)),
-    setCurrentPlay : (music : MusicType) => dispatch(setCurrentPlay(music))
+    setCurrentPlay : (music : MusicType) => dispatch(setCurrentPlay(music)),
+    setPlayerState : (playerState : number) => dispatch(setPlayerState(playerState))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

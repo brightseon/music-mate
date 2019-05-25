@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { SFC, useState } from 'react';
 import MusicPlayerPresenter from './MusicPlayerPresenter';
 import { MusicType } from '../../redux/modules/music/types';
 
@@ -7,14 +7,17 @@ interface IProps {
 };
 
 const MusicPlayerContainer : SFC<IProps> = ({ currentPlay }) => {
-    const musicPlay  = (e : any) => {
-        console.log('musicPlay e : ', e);
-        const { target : { pauseVideo } } = e;
+    const [player, setPlayer] = useState(null);
 
-        pauseVideo();
+    const musicPlay  = (e : any) => {
+        const { target } = e;
+
+        setPlayer(target);
     };
 
-    return <MusicPlayerPresenter currentPlay={ currentPlay } musicPlay={ musicPlay } />;
+    return (
+        <MusicPlayerPresenter currentPlay={ currentPlay } player={ player } musicPlay={ musicPlay } />
+    );
 };
 
 export default MusicPlayerContainer;

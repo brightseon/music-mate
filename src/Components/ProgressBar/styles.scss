@@ -1,12 +1,13 @@
 .progress-bar {
     width: 70%;
-    height: 16px;
+    height: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 6px;
     
     .line {
-        width: 100%;
+        width: 90%;
         height: 5px;
         background-color: $whiteColor;
         position: relative;
@@ -19,5 +20,10 @@
             position: absolute;
             bottom: -75%;
         }
+    }
+
+    .volume-box {
+        width: 16px;
+        height: 16px;
     }
 }

@@ -2,7 +2,7 @@ import {
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
     MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
     SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM, 
-    SetCurrentPlayAction, SET_CURRENT_PLAY
+    SetCurrentPlayAction, SET_CURRENT_PLAY, SET_PLAYER_STATE, SetPlayerStateAction
 } from "./types";
 
 // Action
@@ -57,11 +57,21 @@ export const setCurrentPlay = (music : MusicType) : SetCurrentPlayAction => {
     };
 };
 
+export const setPlayerState = (playerState : number) : SetPlayerStateAction => {
+    return {
+        type : SET_PLAYER_STATE,
+        payload : {
+            playerState
+        }
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
     musicList : [],
     nextPageToken : '',
-    currentPlay : null
+    currentPlay : null,
+    playerState : 2
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -83,6 +93,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_CURRENT_PLAY :
             return applySetCurrentPlay(state, action);
+
+        case SET_PLAYER_STATE : 
+            return applySetPlayerState(state, action);
 
         default :
             return state;
@@ -128,7 +141,14 @@ const applySetCurrentPlay = (state : MusicState, action : SetCurrentPlayAction) 
     return {
         ...state,
         currentPlay : action.payload.music
-    }
+    };
+};
+
+const applySetPlayerState = (state : MusicState, action : SetPlayerStateAction) : MusicState => {
+    return {
+        ...state,
+        playerState : action.payload.playerState
+    };
 };
 
 export default reducer;
