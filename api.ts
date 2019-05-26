@@ -8,4 +8,5 @@ export const QUERY = 'q';
 export const PAGE_TOKEN = 'pageToken';
 
 export const SEARCH_URL = `${ API_URL }/search?part=snippet&key=${ KEY }&type=video&maxResults=${ MAX_RESULTS }`;
+export const DURATION_URL = `${ API_URL }/videos?key=${ KEY }&part=contentDetails&id=`;
 export const MUSIC_PLAY_URL = `${ YOUTUBE_URL }`;

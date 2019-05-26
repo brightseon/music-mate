@@ -1,9 +1,13 @@
 import React, { SFC } from 'react';
 import styles from './styles.scss';
 
-const Time : SFC = () => (
+interface IProps {
+    duration : string;
+};
+
+const Time : SFC<IProps> = ({ duration }) => (
     <div className={ styles.timeBox }>
-        <span className={ styles.time }>4:00</span>
+        <span className={ styles.time }>{ duration }</span>
     </div>
 );
 

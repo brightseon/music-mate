@@ -2,7 +2,7 @@ import List from './ListContainer';
 import { connect } from 'react-redux';
 import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction, SetCurrentPlayAction, SetPlayerStateAction } from '../../redux/modules/music/types';
 import { SearchState } from '../../redux/modules/search/types';
-import { addMusic, removeSearchItem, setCurrentPlay, setPlayerState } from '../../redux/modules/music/music';
+import { addMusic, removeSearchItem, setCurrentPlay, setPlayerState, getCurrentPlayDuration } from '../../redux/modules/music/music';
 import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
 import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
@@ -28,6 +28,7 @@ interface IMapDispatchToProps {
     removeSearchItem : (id : string) => void;
     setCurrentPlay : (music : MusicType) => void;
     setPlayerState : (playerState : number) => void;
+    getCurrentPlayDuration : (id : string) => void;
 };
 
 type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction | SetCurrentPlayAction | SetPlayerStateAction;
@@ -45,7 +46,8 @@ const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) :
     loading : (isLoading : boolean) => dispatch(loading(isLoading)),
     removeSearchItem : (id : string) => dispatch(removeSearchItem(id)),
     setCurrentPlay : (music : MusicType) => dispatch(setCurrentPlay(music)),
-    setPlayerState : (playerState : number) => dispatch(setPlayerState(playerState))
+    setPlayerState : (playerState : number) => dispatch(setPlayerState(playerState)),
+    getCurrentPlayDuration : (id : string) => dispatch(getCurrentPlayDuration(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

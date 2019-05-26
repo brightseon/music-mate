@@ -6,6 +6,7 @@ export const SET_NEXT_PAGE_TOKEN = 'SET_NEXT_PAGE_TOKEN';
 export const REMOVE_SEARCH_ITEM = 'REMOVE_SEARCH_ITEM';
 export const SET_CURRENT_PLAY = 'SET_CURRENT_PLAY';
 export const SET_PLAYER_STATE = 'SET_PLAYER_STATE';
+export const SET_CURRENT_PLAY_DURATION = 'SET_CURRENT_PLAY_DURATION';
 
 // Initial State Type
 export interface MusicState {
@@ -14,6 +15,7 @@ export interface MusicState {
     nextPageToken : string;
     currentPlay : MusicType;
     playerState : number;
+    currentPlayDuration : string;
 };
 
 // Action Types
@@ -51,6 +53,11 @@ export interface SetPlayerStateAction {
     payload : SetPlayerStatePayload;
 };
 
+export interface SetCurrentPlayDurationAction {
+    type : typeof SET_CURRENT_PLAY_DURATION;
+    payload : SetCurrentPlayDurationPayload;
+};
+
 // Payload Types
 interface SetSearchMusicListPayload {
     searchMusicList : MusicType[];
@@ -74,6 +81,10 @@ interface SetCurrentPlayPayload {
 
 interface SetPlayerStatePayload {
     playerState : number;
+};
+
+interface SetCurrentPlayDurationPayload {
+    duration : string;
 };
 
 // Other Types
@@ -119,4 +130,5 @@ export type MusicActions = SetSearchMusicListAction
                             | SetNextPageTokenAction 
                             | RemoveSearchItemAction
                             | SetCurrentPlayAction
-                            | SetPlayerStateAction;
+                            | SetPlayerStateAction
+                            | SetCurrentPlayDurationAction;

@@ -13,6 +13,7 @@ interface IProps {
     removeSearchItem : (id : string) => void;
     setCurrentPlay : (music : MusicType) => void;
     setPlayerState : (playerState : number) => void;
+    getCurrentPlayDuration : (id : string) => void;
 };
 
 class ListContainer extends Component<IProps> {
@@ -65,10 +66,11 @@ class ListContainer extends Component<IProps> {
     };
 
     playMusic = (music : MusicType) => {
-        const { setCurrentPlay, setPlayerState } = this.props;
+        const { setCurrentPlay, setPlayerState, getCurrentPlayDuration } = this.props;
 
         setCurrentPlay(music);
         setPlayerState(1);
+        getCurrentPlayDuration(music.id.videoId);
     };
 
     render() {

@@ -2,8 +2,12 @@ import {
     MusicState, SET_SEARCH_MUSIC_LIST, SetSearchMusicListAction, MusicType, 
     MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
     SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM, 
-    SetCurrentPlayAction, SET_CURRENT_PLAY, SET_PLAYER_STATE, SetPlayerStateAction
+    SetCurrentPlayAction, SET_CURRENT_PLAY, SET_PLAYER_STATE, SetPlayerStateAction, SetCurrentPlayDurationAction,
+    SET_CURRENT_PLAY_DURATION
 } from "./types";
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import axios from 'axios';
+import { DURATION_URL } from '../../../../api';
 
 // Action
 export const setSearchMusicList = (searchMusicList : MusicType[]) : SetSearchMusicListAction => {
@@ -66,12 +70,35 @@ export const setPlayerState = (playerState : number) : SetPlayerStateAction => {
     };
 };
 
+export const setCurrentPlayDuration = (duration : string) : SetCurrentPlayDurationAction => {
+    return {
+        type : SET_CURRENT_PLAY_DURATION,
+        payload : {
+            duration
+        }
+    };
+};
+
+export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
+    return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
+        try {
+            const { data : { items } } : any = await axios.get(`${ DURATION_URL }${ id }`);
+            const duration = items[0].contentDetails.duration;
+
+            dispatch(setCurrentPlayDuration(duration));
+        } catch(err) {
+            console.log('music.ts getCurrentPlayDuration error :', err);
+        }
+    };
+};
+
 const initialState : MusicState = {
     searchMusicList : [],
     musicList : [],
     nextPageToken : '',
     currentPlay : null,
-    playerState : 2
+    playerState : 2,
+    currentPlayDuration : ''
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -96,6 +123,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_PLAYER_STATE : 
             return applySetPlayerState(state, action);
+        
+        case SET_CURRENT_PLAY_DURATION : 
+            return applySetCurrentPlayDuration(state, action);
 
         default :
             return state;
@@ -148,6 +178,13 @@ const applySetPlayerState = (state : MusicState, action : SetPlayerStateAction) 
     return {
         ...state,
         playerState : action.payload.playerState
+    };
+};
+
+const applySetCurrentPlayDuration = (state : MusicState, action : SetCurrentPlayDurationAction) : MusicState => {
+    return {
+        ...state,
+        currentPlayDuration : action.payload.duration
     };
 };
 
