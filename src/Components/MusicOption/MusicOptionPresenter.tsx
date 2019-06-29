@@ -3,19 +3,19 @@ import styles from './styles.scss';
 import Button from '../Button';
 import RepeatButton from '../../../images/buttons/repeatButton.svg';
 import RandomButton from '../../../images/buttons/randomPlay.svg';
-import Time from '../Time';
+import Duration from '../Duration';
 
 interface IProps {
-    duration : string;
+    player : any;
 };
 
-const MusicOptionPresenter : SFC<IProps> = ({ duration }) => (
+const MusicOptionPresenter : SFC<IProps> = ({ player }) => (
     <div className={ styles.musicOption }>
         <div className={ styles.buttonBox }>
             <Button className={ styles.repeatButton } buttonName={ RepeatButton } />
             <Button className={ styles.randomButton } buttonName={ RandomButton } />
         </div>
-        <Time duration={ duration } />
+        <Duration player={ player } />
     </div>
 );
 

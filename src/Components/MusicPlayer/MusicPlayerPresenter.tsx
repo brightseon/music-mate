@@ -4,14 +4,13 @@ import Thumbnail from '../Thumbnail';
 import MusicControl from '../MusicControl';
 import ProgressBar from '../ProgressBar';
 import MusicOption from '../MusicOption';
-import { MUSIC_PLAY_URL } from '../../../api';
 import { MusicType } from '../../redux/modules/music/types';
 import YouTube, { Options } from 'react-youtube';
 
 interface IProps {
     currentPlay : MusicType;
     musicPlay : (e : any) => void;
-    player : any
+    player : any;
 };
 
 const opts : Options = {
@@ -30,7 +29,7 @@ const MusicPlayerPresenter : SFC<IProps> = ({ currentPlay, musicPlay, player }) 
         </div>
         <MusicControl player={ player } />
         <ProgressBar player={ player } />
-        <MusicOption />
+        <MusicOption player={ player } />
     </div>
 );
 
