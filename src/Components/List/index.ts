@@ -1,8 +1,8 @@
 import List from './ListContainer';
 import { connect } from 'react-redux';
-import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction, SetCurrentPlayAction, SetPlayerStateAction } from '../../redux/modules/music/types';
+import { MusicType, MusicState, AddMusicAction, RemoveSearchItemAction, SetCurrentPlayAction, SetPlayerStateAction, SetCurrentIndexAction } from '../../redux/modules/music/types';
 import { SearchState } from '../../redux/modules/search/types';
-import { addMusic, removeSearchItem, setCurrentPlay, setPlayerState, getCurrentPlayDuration } from '../../redux/modules/music/music';
+import { addMusic, removeSearchItem, setCurrentPlay, setPlayerState, getCurrentPlayDuration, setCurrentIndex } from '../../redux/modules/music/music';
 import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
 import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
@@ -29,9 +29,10 @@ interface IMapDispatchToProps {
     setCurrentPlay : (music : MusicType) => void;
     setPlayerState : (playerState : number) => void;
     getCurrentPlayDuration : (id : string) => void;
+    setCurrentIndex : (currentIndex : number) => void;
 };
 
-type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction | SetCurrentPlayAction | SetPlayerStateAction;
+type DispathcActions = AddMusicAction | LoadingAction | RemoveSearchItemAction | SetCurrentPlayAction | SetPlayerStateAction | SetCurrentIndexAction;
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     searchMusicList : state.music.searchMusicList,
@@ -47,7 +48,8 @@ const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) :
     removeSearchItem : (id : string) => dispatch(removeSearchItem(id)),
     setCurrentPlay : (music : MusicType) => dispatch(setCurrentPlay(music)),
     setPlayerState : (playerState : number) => dispatch(setPlayerState(playerState)),
-    getCurrentPlayDuration : (id : string) => dispatch(getCurrentPlayDuration(id))
+    getCurrentPlayDuration : (id : string) => dispatch(getCurrentPlayDuration(id)),
+    setCurrentIndex : (currentIndex : number) => dispatch(setCurrentIndex(currentIndex))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

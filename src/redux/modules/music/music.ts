@@ -3,7 +3,9 @@ import {
     MusicActions, ADD_MUSIC, AddMusicAction, RESET_SEARCH_MUSIC_LIST, ResetSearchMusicListAction, 
     SetNextPageTokenAction, SET_NEXT_PAGE_TOKEN, RemoveSearchItemAction, REMOVE_SEARCH_ITEM, 
     SetCurrentPlayAction, SET_CURRENT_PLAY, SET_PLAYER_STATE, SetPlayerStateAction, SetCurrentPlayDurationAction,
-    SET_CURRENT_PLAY_DURATION
+    SET_CURRENT_PLAY_DURATION,
+    SetCurrentIndexAction,
+    SET_CURRENT_INDEX
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import axios from 'axios';
@@ -79,6 +81,15 @@ export const setCurrentPlayDuration = (duration : string) : SetCurrentPlayDurati
     };
 };
 
+export const setCurrentIndex = (currentIndex : number) : SetCurrentIndexAction => {
+    return {
+        type : SET_CURRENT_INDEX,
+        payload : {
+            currentIndex
+        }
+    };
+};
+
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
@@ -98,7 +109,8 @@ const initialState : MusicState = {
     nextPageToken : '',
     currentPlay : null,
     playerState : 2,
-    currentPlayDuration : ''
+    currentPlayDuration : '',
+    currentIndex : 0
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -126,6 +138,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
         
         case SET_CURRENT_PLAY_DURATION : 
             return applySetCurrentPlayDuration(state, action);
+
+        case SET_CURRENT_INDEX : 
+            return applySetCurrentIndex(state, action);
 
         default :
             return state;
@@ -185,6 +200,13 @@ const applySetCurrentPlayDuration = (state : MusicState, action : SetCurrentPlay
     return {
         ...state,
         currentPlayDuration : action.payload.duration
+    };
+};
+
+const applySetCurrentIndex = (state : MusicState, action : SetCurrentIndexAction) : MusicState => {
+    return {
+        ...state,
+        currentIndex : action.payload.currentIndex
     };
 };
 

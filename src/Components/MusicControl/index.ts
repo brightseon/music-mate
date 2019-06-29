@@ -10,6 +10,7 @@ interface IState {
 
 interface IMapStateToProps {
     playerState : number;
+    currentIndex : number;
 };
 
 interface IMapDispatchToProps {
@@ -17,7 +18,8 @@ interface IMapDispatchToProps {
 };
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
-    playerState : state.music.playerState
+    playerState : state.music.playerState,
+    currentIndex : state.music.currentIndex
 });
 
 const mapDispatchToProps = (dispatch : Dispatch) : IMapDispatchToProps => ({

@@ -5,9 +5,10 @@ interface IProps {
     player : any;
     playerState : number;
     setPlayerState : (playerState : number) => void;
+    currentIndex : number;
 };
 
-const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerState }) => {
+const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerState, currentIndex }) => {
     const playButton = () => {
         if(player.getPlayerState() === 1) {
             pauseMusic();

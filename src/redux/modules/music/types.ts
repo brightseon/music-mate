@@ -7,6 +7,7 @@ export const REMOVE_SEARCH_ITEM = 'REMOVE_SEARCH_ITEM';
 export const SET_CURRENT_PLAY = 'SET_CURRENT_PLAY';
 export const SET_PLAYER_STATE = 'SET_PLAYER_STATE';
 export const SET_CURRENT_PLAY_DURATION = 'SET_CURRENT_PLAY_DURATION';
+export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
 
 // Initial State Type
 export interface MusicState {
@@ -16,6 +17,7 @@ export interface MusicState {
     currentPlay : MusicType;
     playerState : number;
     currentPlayDuration : string;
+    currentIndex : number;
 };
 
 // Action Types
@@ -58,6 +60,11 @@ export interface SetCurrentPlayDurationAction {
     payload : SetCurrentPlayDurationPayload;
 };
 
+export interface SetCurrentIndexAction {
+    type : typeof SET_CURRENT_INDEX;
+    payload : SetCurrentIndexPayload;
+}
+
 // Payload Types
 interface SetSearchMusicListPayload {
     searchMusicList : MusicType[];
@@ -85,6 +92,10 @@ interface SetPlayerStatePayload {
 
 interface SetCurrentPlayDurationPayload {
     duration : string;
+};
+
+interface SetCurrentIndexPayload {
+    currentIndex : number;
 };
 
 // Other Types
@@ -131,4 +142,5 @@ export type MusicActions = SetSearchMusicListAction
                             | RemoveSearchItemAction
                             | SetCurrentPlayAction
                             | SetPlayerStateAction
-                            | SetCurrentPlayDurationAction;
+                            | SetCurrentPlayDurationAction
+                            | SetCurrentIndexAction;
