@@ -11,6 +11,12 @@ let timer : NodeJS.Timeout;
 
 const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player }) => {
     const [currentTime, setCurrentTime] = useState('00:00');
+
+    const makeTimeFormat = (time : number | string) => {
+        const strTime = typeof time === 'number' ? time.toString() : time;
+
+        return strTime.length < 2 ? `0${ strTime }` : strTime;
+    };
     
     const getCurrentTime = () => {
         console.log('playerState : ', playerState, player);
@@ -26,30 +32,30 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     };
 
     const makeCurrentTimeFormat = () => {
-        let formatTime = '';
+        let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
         console.log('currentTime : ', currentTime);
 
         if(currentTime < 60) {
-            formatTime = `00:${ currentTime.toString().length < 2 ? `0${ currentTime }` : currentTime }`;
+            formatTime = `00:${ makeTimeFormat(currentTime) }`;
         }
 
         if(currentTime > 60 && currentTime < 3600) {
-            const min = Math.floor(currentTime / 60).toString();
-            const sec = (currentTime % 60).toString();
+            const min = Math.floor(currentTime / 60);
+            const sec = (currentTime % 60);
 
-            formatTime = `${ min.length < 2 ? `0${ min }` : min }:${ sec.length < 2 ? `0${ sec }` : sec }`;
+            formatTime = `${ makeTimeFormat(min) }:${ makeTimeFormat(sec) }`;
         }
 
         if(currentTime > 3600) {
-            const hour = (currentTime / 60 / 60).toString();
-            const min = ((currentTime / 60) % 60).toString();
-            const sec = (currentTime % 60 % 60).toString();
+            const hour = (currentTime / 60 / 60);
+            const min = ((currentTime / 60) % 60);
+            const sec = (currentTime % 60 % 60);
 
             formatTime = `
-                ${ hour.length < 2 ? `0${ hour }` : hour }:
-                ${ min.length < 2 ? `0${ min }` : min }:
-                ${ sec.length < 2 ? `0${ sec }` : sec }
+                ${ makeTimeFormat(hour) }:
+                ${ makeTimeFormat(min) }:
+                ${ makeTimeFormat(sec) }
             `;
         }
 
@@ -70,17 +76,17 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
         if(execHour) {
             const splitHour = execHour[0].split('H')[0];
-            hour = `${ splitHour.length < 2 ? `0${ splitHour }` : splitHour }:`;
+            hour = makeTimeFormat(splitHour);
         }
 
         if(execMin) {
             const splitMin = execMin[0].split('M')[0];
-            min = `${ splitMin.length < 2 ? `0${ splitMin }` : splitMin }:`;
+            min = makeTimeFormat(splitMin);
         }
 
         if(execSec) {
             const splitSec = execSec[0].split('S')[0];
-            sec = `${ splitSec.length < 2 ? `0${ splitSec }` : splitSec }`;
+            sec = makeTimeFormat(splitSec);
         }
 
         return `${ hour }${ min }${ sec }`;
