@@ -5,7 +5,7 @@ interface IProps {
     thumbnail? : string;
 };
 
-const Thumbnail : SFC<IProps> = ({ className, thumbnail = 'https://t1.daumcdn.net/cfile/tistory/2532224058AEC15F07' }) => 
-    <div className={ className } style={{ backgroundImage : `url(${ thumbnail })` }} />
+const Thumbnail : SFC<IProps> = ({ className, thumbnail }) => 
+    <div className={ className } style={ thumbnail ? { backgroundImage : `url(${ thumbnail })` } : { backgroundColor : 'black' } } />
 
 export default Thumbnail;

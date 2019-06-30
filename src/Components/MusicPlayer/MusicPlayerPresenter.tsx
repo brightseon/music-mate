@@ -23,9 +23,14 @@ const opts : Options = {
 
 const MusicPlayerPresenter : SFC<IProps> = ({ currentPlay, musicPlay, player }) => (
     <div className={ styles.musicPlayer }>
-        { currentPlay && <YouTube containerClassName={ styles.hiddenPlayerContainer } className={ styles.hiddenPlayer } videoId={ currentPlay.id.videoId } opts={ opts } onReady={ musicPlay } /> }
+        { 
+            currentPlay && (
+                <YouTube containerClassName={ styles.hiddenPlayerContainer } className={ styles.hiddenPlayer } 
+                    videoId={ currentPlay.id.videoId } opts={ opts } onReady={ musicPlay } />
+            )
+        }
         <div className={ styles.thumbnailBox }>
-            <Thumbnail className={ `${ styles.mediumThumbnail } ${ styles.thumbnail }` } />
+            <Thumbnail className={ `${ styles.mediumThumbnail } ${ styles.thumbnail }` } thumbnail={ currentPlay && currentPlay.snippet.thumbnails.default.url } />
         </div>
         <MusicControl player={ player } />
         <ProgressBar player={ player } />
