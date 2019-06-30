@@ -1,7 +1,7 @@
 import React, { SFC } from 'react';
 import MusicControlPresenter from './MusicControlPresenter';
 import { MusicType } from '../../redux/modules/music/types';
-import { MOVE_MUSIC_TYPE, NEXT } from '../../types/commonTypes';
+import { MOVE_MUSIC_TYPE, NEXT, PREV } from '../../types/commonTypes';
 
 interface IProps {
     player : any;
@@ -12,9 +12,6 @@ interface IProps {
     setCurrentPlay : (music : MusicType) => void;
     setCurrentIndex : (index : number) => void;
 };
-
-const ADD = 'ADD';
-const MINUS = 'MINUS';
 
 const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerState, currentIndex, musicList, setCurrentPlay, setCurrentIndex }) => {
     const playButton = () => {
@@ -35,17 +32,24 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
         player.pauseVideo();
     };
 
-    const calcCurrentIndex = (action : typeof ADD | typeof MINUS, num : number) => {
+    const calcCurrentIndex = (action : MOVE_MUSIC_TYPE) => {
         let currentIdx = currentIndex;
+        const lastIndex = musicList.length - 1;
 
-        switch(action) {
-            case ADD :
-                currentIdx += num;
-                break;
-
-            case MINUS :
-                currentIdx -= num;
-                break;
+        if(currentIdx === 0 && action === PREV) {
+            currentIdx = lastIndex;
+        } else if(currentIdx === lastIndex && action === NEXT) {
+            currentIdx = 0;
+        } else {
+            switch(action) {
+                case NEXT :
+                    currentIdx += 1;
+                    break;
+    
+                case PREV :
+                    currentIdx -= 1;
+                    break;
+            }
         }
 
         return currentIdx;
@@ -61,8 +65,7 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
     };
 
     const moveMusic = (type : MOVE_MUSIC_TYPE) => {
-        const action = type === NEXT ? ADD : MINUS;
-        const index = calcCurrentIndex(action, 1);
+        const index = calcCurrentIndex(type);
         const music = getMusic(index);
 
         updateMusic(music, index);
