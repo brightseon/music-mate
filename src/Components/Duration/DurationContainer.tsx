@@ -76,12 +76,12 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
         if(execHour) {
             const splitHour = execHour[0].split('H')[0];
-            hour = makeTimeFormat(splitHour);
+            hour = `${ makeTimeFormat(splitHour) }:`;
         }
 
         if(execMin) {
             const splitMin = execMin[0].split('M')[0];
-            min = makeTimeFormat(splitMin);
+            min = `${ makeTimeFormat(splitMin) }:`;
         }
 
         if(execSec) {
