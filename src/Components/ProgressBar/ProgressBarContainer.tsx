@@ -18,6 +18,8 @@ const ProgressBarContainer : SFC<IProps> = ({ player }) => {
     useEffect(initVolume, [player]);
 
     const volumeControl = () => {
+        if(!player) return;
+        
         if(volume > 0) {
             player.setVolume(0);
             setVolume(0);

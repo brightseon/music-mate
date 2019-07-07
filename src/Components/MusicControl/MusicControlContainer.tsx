@@ -23,9 +23,11 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
     };
     
     const playMusic = () => {
-        player.playVideo();
-        
-        setPlayerState(1);
+        if(player) {
+            player.playVideo();
+            
+            setPlayerState(1);
+        }
     };
     
     const pauseMusic = () => {
