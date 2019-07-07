@@ -30,15 +30,10 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     };
     
     const getCurrentTime = () => {
-        console.log('playerState : ', playerState, player);
-        console.log('timer : ', timer);
         if(player && playerState === 1) {
-            console.log('setTimer : ', playerState);
             timer = setInterval(makeCurrentTimeFormat, 1000);
             strTotalDuration = makeDurationFormat();
-            console.log('setTimer timer : ', timer);
         } else if(player && playerState === 2) {
-            console.log('if inner timer : ', timer);
             clearInterval(timer);
         }
     };
@@ -46,12 +41,8 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     const makeCurrentTimeFormat = () => {
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
-        console.log('currentTime : ', currentTime);
-        console.log('totalDuration : ', totalDuration);
 
         if(currentTime >= totalDuration) {
-            console.log('currentTime >= totalDuration true');
-
             pauseMusic();
             playMusic();
         }
@@ -86,11 +77,22 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         setPlayerState(2);
     };
 
-    const playMusic = () => {
-        pPlayMusic(musicList[currentIndex + 1]);
+    const getIndex = () : number => {
+        const idx = currentIndex + 1;
+        let returnIndex = 0;
+
+        if(idx < musicList.length) {
+            returnIndex = idx;
+        }
+
+        return returnIndex;
     };
 
-    useEffect(getCurrentTime, [player, playerState]);
+    const playMusic = () => {
+        pPlayMusic(musicList[getIndex()]);
+    };
+
+    useEffect(getCurrentTime, [player, playerState, currentPlayDuration]);
     
     const makeDurationFormat = () => {
         const hourRegex = new RegExp('[0-9]{1,2}H', 'gi');

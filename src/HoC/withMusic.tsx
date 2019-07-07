@@ -11,7 +11,6 @@ interface IProps {
 
 const withMusic = <P extends IProps>(Component : SFC<P>) => {
     return (props : P) => {
-        console.log(`${ Component.name } withMusic props : `, props);
         const findIndex = (music : MusicType) => {
             const { musicList } = props;
 
