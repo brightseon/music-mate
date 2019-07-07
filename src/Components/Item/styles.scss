@@ -21,7 +21,6 @@
             width: 47px;
             height: 37px;
             border-radius: 10px;
-            margin-right: 10px;
         }
     
         .music-title-box {
@@ -33,6 +32,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             user-select: none;
+            margin: 0 10px;
     
             .music-title {
                 color: $textColor;

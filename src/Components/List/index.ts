@@ -7,6 +7,7 @@ import { LoadingState, LoadingAction } from '../../redux/modules/loading/types';
 import { searchMusic } from '../../redux/modules/search/search';
 import { ThunkDispatch } from 'redux-thunk';
 import { loading } from '../../redux/modules/loading/loading';
+import withMusic from '../../HoC/withMusic';
 
 interface IState {
     music : MusicState;
@@ -52,4 +53,4 @@ const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispathcActions>) :
     setCurrentIndex : (currentIndex : number) => dispatch(setCurrentIndex(currentIndex))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(withMusic(List));

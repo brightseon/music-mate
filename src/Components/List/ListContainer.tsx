@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { createRef, memo, SFC, useEffect } from 'react';
 import ListPresenter from './ListPresenter';
 import { MusicType } from '../../redux/modules/music/types';
 
@@ -15,80 +15,57 @@ interface IProps {
     setPlayerState : (playerState : number) => void;
     getCurrentPlayDuration : (id : string) => void;
     setCurrentIndex : (currentIndex : number) => void;
+    playMusic? : (music : MusicType) => void;
 };
 
-class ListContainer extends Component<IProps> {
-    listBoxRef = createRef<HTMLDivElement>();
-    listRef = createRef<HTMLDivElement>();
+const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, addMusic : pAddMusic, searchMusic, nextPageToken, loading, removeSearchItem, setCurrentPlay, setPlayerState, getCurrentPlayDuration, setCurrentIndex, playMusic : pPlayMusic }) => {
+    const listBoxRef = createRef<HTMLDivElement>();
+    const listRef = createRef<HTMLDivElement>();
 
-    componentDidMount = () => {
-        window.addEventListener('scroll', this.handleScroll, true);
-    };
-    
-    shouldComponentUpdate = (nextProps : IProps) : boolean => {
-        const { musicList, searchMusicList } = this.props;
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, true);
+    }, []);
 
-        if(nextProps.musicList !== musicList || nextProps.searchMusicList !== searchMusicList) {
-            return true;
-        }
-
-        return false;
-    };
-
-    componentWillUnmount = () => {
-        window.removeEventListener('scroll', this.handleScroll);
-    };
-
-    handleScroll = () => {
-        const { isSearching } = this.props;
-
+    const handleScroll = () => {
         if(!isSearching) return;
 
-        const listBoxRef = this.listBoxRef.current;
-        const listRef = this.listRef.current;
+        const listBox = listBoxRef.current;
+        const list = listRef.current;
 
-        let scrollHeight = Math.max(listBoxRef.scrollHeight, listRef.scrollHeight);
-        let scrollTop = Math.max(listBoxRef.scrollTop, listRef.scrollTop);
-        let clientHeight = listBoxRef.clientHeight;
+        let scrollHeight = Math.max(listBox.scrollHeight, list.scrollHeight);
+        let scrollTop = Math.max(listBox.scrollTop, list.scrollTop);
+        let clientHeight = listBox.clientHeight;
 
         if(scrollTop + clientHeight === scrollHeight) {
-            const { searchMusic, nextPageToken, loading } = this.props;
-
             loading(true);
             searchMusic(null, nextPageToken);
         }
     };
 
-    addMusic = (music : MusicType) => {
-        const { addMusic, removeSearchItem } = this.props;
-
-        addMusic(music);
+    const addMusic = (music : MusicType) => {
+        pAddMusic(music);
         removeSearchItem(music.id.videoId);
     };
 
-    playMusic = (music : MusicType) => {
-        const { setCurrentPlay, setPlayerState, getCurrentPlayDuration, setCurrentIndex } = this.props;
+    const playMusic = (music : MusicType) => {
+        // setCurrentPlay(music);
+        // setPlayerState(1);
+        // getCurrentPlayDuration(music.id.videoId);
+        // setCurrentIndex(findIndex(music));
 
-        setCurrentPlay(music);
-        setPlayerState(1);
-        getCurrentPlayDuration(music.id.videoId);
-        setCurrentIndex(this.findIndex(music));
+        pPlayMusic(music);
     };
 
-    findIndex = (music : MusicType) => {
-        const { musicList } = this.props;
-
-        return musicList.findIndex(musicItem => musicItem.id.videoId === music.id.videoId);
-    };
-
-    render() {
-        const { isSearching, musicList, searchMusicList } = this.props;
-
-        return (
-            <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
-                addMusic={ this.addMusic } listBoxRef={ this.listBoxRef } listRef={ this.listRef } playMusic={ this.playMusic } />
-        );
-    };
+    return (
+        <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
+            addMusic={ addMusic } listBoxRef={ listBoxRef } listRef={ listRef } playMusic={ playMusic } />
+    );
 };
 
-export default ListContainer;
+const propsAreEqual = (prevProps : IProps, nextProps : IProps) : boolean => {
+    const result = prevProps.musicList !== nextProps.musicList || prevProps.searchMusicList !== nextProps.searchMusicList || prevProps.isSearching !== nextProps.isSearching;
+
+    return !result;
+};
+
+export default memo<IProps>(ListContainer, propsAreEqual);
