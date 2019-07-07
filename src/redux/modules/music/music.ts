@@ -5,7 +5,9 @@ import {
     SetCurrentPlayAction, SET_CURRENT_PLAY, SET_PLAYER_STATE, SetPlayerStateAction, SetCurrentPlayDurationAction,
     SET_CURRENT_PLAY_DURATION,
     SetCurrentIndexAction,
-    SET_CURRENT_INDEX
+    SET_CURRENT_INDEX,
+    TOGGLE_IS_REPEAT_ALL,
+    ToggleIsRepeatAllAction
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import axios from 'axios';
@@ -90,6 +92,12 @@ export const setCurrentIndex = (currentIndex : number) : SetCurrentIndexAction =
     };
 };
 
+export const toggleIsRepeatAll = () : ToggleIsRepeatAllAction => {
+    return {
+        type : TOGGLE_IS_REPEAT_ALL
+    };
+};
+
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
@@ -110,7 +118,8 @@ const initialState : MusicState = {
     currentPlay : null,
     playerState : 2,
     currentPlayDuration : '',
-    currentIndex : 0
+    currentIndex : 0,
+    isRepeatAll : false
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -141,6 +150,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_CURRENT_INDEX : 
             return applySetCurrentIndex(state, action);
+
+        case TOGGLE_IS_REPEAT_ALL : 
+            return applyToggleIsRepeatAll(state);
 
         default :
             return state;
@@ -207,6 +219,13 @@ const applySetCurrentIndex = (state : MusicState, action : SetCurrentIndexAction
     return {
         ...state,
         currentIndex : action.payload.currentIndex
+    };
+};
+
+const applyToggleIsRepeatAll = (state : MusicState) : MusicState => {
+    return {
+        ...state,
+        isRepeatAll : !state.isRepeatAll
     };
 };
 

@@ -15,6 +15,7 @@ interface IMapStateToProps {
     playerState : number;
     musicList : MusicType[];
     currentIndex : number;
+    isRepeatAll : boolean;
 };
 
 interface IMapDispatchToProps {
@@ -30,7 +31,8 @@ const mapStateToProps = (state : IState) : IMapStateToProps => ({
     currentPlayDuration : state.music.currentPlayDuration,
     playerState : state.music.playerState,
     musicList : state.music.musicList,
-    currentIndex : state.music.currentIndex
+    currentIndex : state.music.currentIndex,
+    isRepeatAll : state.music.isRepeatAll
 });
 
 const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispatchActions>) : IMapDispatchToProps => ({

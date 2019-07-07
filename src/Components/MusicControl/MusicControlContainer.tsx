@@ -23,6 +23,7 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
     };
     
     const playMusic = () => {
+        console.log('playMusic player : ', player);
         player.playVideo();
         
         setPlayerState(1);

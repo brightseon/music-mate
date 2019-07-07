@@ -13,13 +13,14 @@ interface IProps {
     currentIndex : number;
     playMusic? : (music : MusicType) => void;
     getCurrentPlayDuration : (id : string) => void;
+    isRepeatAll : boolean;
 };
 
 let timer : NodeJS.Timeout;
 let strTotalDuration : string = '';
 const SECOND = 60;
 
-const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic }) => {
+const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, isRepeatAll }) => {
     let totalDuration : number = 0;
     const [currentTime, setCurrentTime] = useState('00:00');
 
@@ -42,7 +43,7 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
 
-        if(currentTime >= totalDuration) {
+        if(currentTime === totalDuration) {
             pauseMusic();
             playMusic();
         }
@@ -81,7 +82,13 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         const idx = currentIndex + 1;
         let returnIndex = 0;
 
-        if(idx < musicList.length) {
+        if(idx >= musicList.length) {
+            if(!isRepeatAll) {
+                pauseMusic();
+
+                return;
+            }
+        } else {
             returnIndex = idx;
         }
 
@@ -89,7 +96,11 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     };
 
     const playMusic = () => {
-        pPlayMusic(musicList[getIndex()]);
+        const index = getIndex();
+
+        if(index) {
+            pPlayMusic(musicList[index]);
+        }
     };
 
     useEffect(getCurrentTime, [player, playerState, currentPlayDuration]);
