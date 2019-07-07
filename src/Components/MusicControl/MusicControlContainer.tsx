@@ -15,15 +15,14 @@ interface IProps {
 
 const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerState, currentIndex, musicList, setCurrentPlay, setCurrentIndex }) => {
     const playButton = () => {
-        if(player.getPlayerState() === 1) {
+        if(playerState === 1) {
             pauseMusic();
-        } else if(player.getPlayerState() === 2) {
+        } else if(playerState === 2) {
             playMusic();
         }
     };
     
     const playMusic = () => {
-        console.log('playMusic player : ', player);
         player.playVideo();
         
         setPlayerState(1);
