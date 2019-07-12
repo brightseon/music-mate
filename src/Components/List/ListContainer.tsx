@@ -1,6 +1,7 @@
 import React, { createRef, memo, SFC, useEffect } from 'react';
 import ListPresenter from './ListPresenter';
 import { MusicType } from '../../redux/modules/music/types';
+import { youtubePlayMusic } from '../../utils/youtube';
 
 interface IProps {
     isSearching : boolean;
@@ -48,11 +49,8 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
     };
 
     const playMusic = (music : MusicType) => {
-        // setCurrentPlay(music);
-        // setPlayerState(1);
-        // getCurrentPlayDuration(music.id.videoId);
-        // setCurrentIndex(findIndex(music));
-
+        youtubePlayMusic();
+        
         pPlayMusic(music);
     };
 

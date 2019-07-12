@@ -2,6 +2,7 @@ import React, { SFC } from 'react';
 import MusicControlPresenter from './MusicControlPresenter';
 import { MusicType } from '../../redux/modules/music/types';
 import { MOVE_MUSIC_TYPE, NEXT, PREV } from '../../types/commonTypes';
+import { youtubePlayMusic, youtubePauseMusic } from '../../utils/youtube';
 
 interface IProps {
     player : any;
@@ -21,19 +22,21 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
             playMusic();
         }
     };
-    
+
     const playMusic = () => {
         if(player) {
-            player.playVideo();
+            youtubePlayMusic();
             
             setPlayerState(1);
         }
     };
     
     const pauseMusic = () => {
-        player.pauseVideo();
-
-        setPlayerState(2);
+        if(player) {
+            youtubePauseMusic();
+    
+            setPlayerState(2);
+        }
     };
 
     const calcCurrentIndex = (action : MOVE_MUSIC_TYPE) => {

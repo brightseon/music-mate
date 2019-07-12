@@ -1,6 +1,7 @@
 import React, { SFC, useState, useEffect } from 'react';
 import DurationPresenter from './DurationPresenter';
 import { MusicType } from '../../redux/modules/music/types';
+import { youtubePauseMusic, youtubePlayMusic } from '../../utils/youtube';
 
 interface IProps {
     currentPlayDuration : string;
@@ -35,6 +36,7 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
             timer = setInterval(makeCurrentTimeFormat, 1000);
             strTotalDuration = makeDurationFormat();
         } else if(player && playerState === 2) {
+            console.log('clear')
             clearInterval(timer);
         }
     };
@@ -42,7 +44,7 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     const makeCurrentTimeFormat = () => {
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
-
+        
         if(currentTime === totalDuration) {
             pauseMusic();
             playMusic();
@@ -75,6 +77,8 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     };
 
     const pauseMusic = () => {
+        youtubePauseMusic();
+
         setPlayerState(2);
     };
 
@@ -82,10 +86,11 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         const idx = currentIndex + 1;
         let returnIndex = 0;
 
-        if(idx >= musicList.length) {
+        console.log('isRepeatAll : ', isRepeatAll);
+        console.log('idx : ', idx);
+        console.log('musicList.length : ', musicList.length);
+        if(idx === musicList.length) {
             if(!isRepeatAll) {
-                pauseMusic();
-
                 return;
             }
         } else {
@@ -98,7 +103,9 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     const playMusic = () => {
         const index = getIndex();
 
-        if(index) {
+        if(index === 0 || index) {
+            youtubePlayMusic();
+            
             pPlayMusic(musicList[index]);
         }
     };
@@ -134,7 +141,7 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
         return `${ hour }${ min }${ sec }`;
     };
-
+    
     return (
         <DurationPresenter currentTime={ currentTime } duration={ strTotalDuration } />
     );
