@@ -49,8 +49,6 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
     };
 
     const playMusic = (music : MusicType) => {
-        youtubePlayMusic();
-        
         pPlayMusic(music);
     };
 

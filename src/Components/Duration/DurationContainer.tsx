@@ -33,11 +33,14 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     
     const getCurrentTime = () => {
         if(player && playerState === 1) {
+            console.log('player playerState === 1 playerState : ', player.getPlayerState());
             timer = setInterval(makeCurrentTimeFormat, 1000);
             strTotalDuration = makeDurationFormat();
         } else if(player && playerState === 2) {
-            console.log('clear')
+            console.log('player playerState === 2 playerState : ', player.getPlayerState());
             clearInterval(timer);
+
+            playMusic();
         }
     };
 
@@ -47,21 +50,20 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         
         if(currentTime === totalDuration) {
             pauseMusic();
-            playMusic();
         }
 
         if(currentTime < SECOND) {
             formatTime = `00:${ makeTimeFormat(currentTime) }`;
         }
 
-        if(currentTime > SECOND && currentTime < 3600) {
+        if(currentTime >= SECOND && currentTime < 3600) {
             const min = Math.floor(currentTime / SECOND);
             const sec = (currentTime % SECOND);
 
             formatTime = `${ makeTimeFormat(min) }:${ makeTimeFormat(sec) }`;
         }
 
-        if(currentTime > 3600) {
+        if(currentTime >= 3600) {
             const hour = (currentTime / SECOND / SECOND);
             const min = ((currentTime / SECOND) % SECOND);
             const sec = (currentTime % SECOND % SECOND);
@@ -83,27 +85,16 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     };
 
     const getIndex = () : number => {
-        const idx = currentIndex + 1;
-        let returnIndex = 0;
-
+        console.log('currentIndex : ', currentIndex);
         console.log('isRepeatAll : ', isRepeatAll);
-        console.log('idx : ', idx);
-        console.log('musicList.length : ', musicList.length);
-        if(idx === musicList.length) {
-            if(!isRepeatAll) {
-                return;
-            }
-        } else {
-            returnIndex = idx;
-        }
 
-        return returnIndex;
+        return (isRepeatAll && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
     };
 
     const playMusic = () => {
         const index = getIndex();
 
-        if(index === 0 || index) {
+        if(index < musicList.length) {
             youtubePlayMusic();
             
             pPlayMusic(musicList[index]);

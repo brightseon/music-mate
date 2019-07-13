@@ -5,13 +5,18 @@ const getPlayer = () : any => {
 };
 
 export const updatePlayer = (player : any) => {
+    console.log('updatePlayer player : ', player);
     youtubePlayer = player;
 };
 
 export const youtubePlayMusic = () => {
-    getPlayer().playVideo();
+    const player = getPlayer();
+    console.log('youtubePlayMusic player : ', player);
+    player.playVideo();
 };
 
 export const youtubePauseMusic = () => {
-    getPlayer().pauseVideo();
+    const player = getPlayer();
+    console.log('youtubePauseMusic player : ', player);
+    player.pauseVideo();
 };
