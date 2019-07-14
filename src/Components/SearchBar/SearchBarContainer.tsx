@@ -25,10 +25,11 @@ class SearchBarContainer extends Component<IProps> {
     };
 
     searchMusic : KeyboardEventHandler = (e : KeyboardEvent<HTMLInputElement>) => {
-        const { searchTerm, searchMusic, toggleIsSearching, loading } = this.props;
+        const { searchTerm, searchMusic, toggleIsSearching, loading, resetSearchMusicList } = this.props;
         const { keyCode : enterKey } = e;
 
         if(enterKey === 13 && searchTerm.length > 0) {
+            resetSearchMusicList();
             searchMusic(searchTerm);
             toggleIsSearching(true);
             loading(true);

@@ -54,6 +54,7 @@ const getIndex = (str : string, type : TYPES) => {
 
 export const makeTotalDuration = (currentDuration : string) : string => {
     let time = '';
+    totalDuration = 0;
     const replaceDuration = currentDuration.replace('PT', '');
 
     TIME_SEQUENCE.forEach(timeType => {

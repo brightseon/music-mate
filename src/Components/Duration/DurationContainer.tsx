@@ -26,24 +26,31 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
     const [currentTime, setCurrentTime] = useState('00:00');
     
     const getCurrentTime = () => {
-        if(player && playerState === 1) {
-            console.log('player playerState === 1 playerState : ', player.getPlayerState());
-            timer = setInterval(makeCurrentTimeFormat, 1000);
-            strTotalDuration = makeDurationFormat();
-        } else if(player && playerState === 2) {
-            console.log('player playerState === 2 playerState : ', player.getPlayerState());
-            clearInterval(timer);
+        if(!player) return;
 
-            playMusic();
+        switch(playerState) {
+            case 0 :
+                clearInterval(timer);
+                nextPlayMusic();
+                break;
+
+            case 1 :
+                timer = setInterval(makeCurrentTimeFormat, 1000);
+                strTotalDuration = makeDurationFormat();
+                break;
+
+            case 2 :
+                clearInterval(timer);
+                break;
         }
     };
-
+    
     const makeCurrentTimeFormat = () => {
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
         
         if(currentTime === getTotalDuration()) {
-            pauseMusic();
+            stopMusic();
         }
 
         if(currentTime < SECOND) {
@@ -72,20 +79,16 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         setCurrentTime(formatTime);
     };
 
-    const pauseMusic = () => {
-        youtubePauseMusic();
-
-        setPlayerState(2);
+    const stopMusic = () => {
+        setPlayerState(0);
     };
 
-    const getIndex = () : number => {
-        console.log('currentIndex : ', currentIndex);
-        console.log('isRepeatAll : ', isRepeatAll);
 
+    const getIndex = () : number => {
         return (isRepeatAll && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
     };
 
-    const playMusic = () => {
+    const nextPlayMusic = () => {
         const index = getIndex();
 
         if(index < musicList.length) {
