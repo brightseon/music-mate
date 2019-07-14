@@ -6,13 +6,12 @@ import {
     SET_CURRENT_PLAY_DURATION,
     SetCurrentIndexAction,
     SET_CURRENT_INDEX,
-    TOGGLE_IS_REPEAT_ALL,
-    ToggleIsRepeatAllAction
+    SetRepeatStateAction,
+    SET_REPEAT_STATE,
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import axios from 'axios';
-import { DURATION_URL } from '../../../../api';
 import { getDuration } from "../../../utils/Time";
+import { OFF, REPEAT_STATE_TYPE } from "../../../types/commonTypes";
 
 // Action
 export const setSearchMusicList = (searchMusicList : MusicType[]) : SetSearchMusicListAction => {
@@ -93,17 +92,18 @@ export const setCurrentIndex = (currentIndex : number) : SetCurrentIndexAction =
     };
 };
 
-export const toggleIsRepeatAll = () : ToggleIsRepeatAllAction => {
+export const setRepeatState = (repeatState : REPEAT_STATE_TYPE) : SetRepeatStateAction => {
     return {
-        type : TOGGLE_IS_REPEAT_ALL
+        type : SET_REPEAT_STATE,
+        payload : {
+            repeatState
+        }
     };
 };
 
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
-            // const { data : { items } } : any = await axios.get(`${ DURATION_URL }${ id }`);
-            // const duration = items[0].contentDetails.duration;
             const duration = await getDuration(id);
 
             dispatch(setCurrentPlayDuration(duration));
@@ -121,7 +121,7 @@ const initialState : MusicState = {
     playerState : 2,
     currentPlayDuration : '',
     currentIndex : 0,
-    isRepeatAll : false
+    repeatState : OFF
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -153,8 +153,8 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
         case SET_CURRENT_INDEX : 
             return applySetCurrentIndex(state, action);
 
-        case TOGGLE_IS_REPEAT_ALL : 
-            return applyToggleIsRepeatAll(state);
+        case SET_REPEAT_STATE : 
+            return applySetRepeatState(state, action);
 
         default :
             return state;
@@ -224,10 +224,10 @@ const applySetCurrentIndex = (state : MusicState, action : SetCurrentIndexAction
     };
 };
 
-const applyToggleIsRepeatAll = (state : MusicState) : MusicState => {
+const applySetRepeatState = (state : MusicState, action : SetRepeatStateAction) : MusicState => {
     return {
         ...state,
-        isRepeatAll : !state.isRepeatAll
+        repeatState : action.payload.repeatState
     };
 };
 

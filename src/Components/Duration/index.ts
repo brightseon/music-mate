@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { setPlayerState, setCurrentPlay, setCurrentIndex, getCurrentPlayDuration } from '../../redux/modules/music/music';
 import withMusic from '../../HoC/withMusic';
 import { ThunkDispatch } from 'redux-thunk';
+import { REPEAT_STATE_TYPE } from '../../types/commonTypes';
 
 interface IState {
     music : MusicState;
@@ -15,7 +16,7 @@ interface IMapStateToProps {
     playerState : number;
     musicList : MusicType[];
     currentIndex : number;
-    isRepeatAll : boolean;
+    repeatState : REPEAT_STATE_TYPE;
 };
 
 interface IMapDispatchToProps {
@@ -32,7 +33,7 @@ const mapStateToProps = (state : IState) : IMapStateToProps => ({
     playerState : state.music.playerState,
     musicList : state.music.musicList,
     currentIndex : state.music.currentIndex,
-    isRepeatAll : state.music.isRepeatAll
+    repeatState : state.music.repeatState
 });
 
 const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispatchActions>) : IMapDispatchToProps => ({

@@ -40,7 +40,6 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
     };
 
     const calcCurrentIndex = (action : MOVE_MUSIC_TYPE) => {
-        console.log('calcCurrentIndex action : ', action);
         let currentIdx = currentIndex;
         const lastIndex = musicList.length - 1;
 
@@ -59,7 +58,6 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
                     break;
             }
         }
-        console.log('currentIdx : ', currentIdx);
 
         return currentIdx;
     };
@@ -74,7 +72,6 @@ const MusicControlContainer : SFC<IProps> = ({ player, playerState, setPlayerSta
     };
 
     const moveMusic = (type : MOVE_MUSIC_TYPE) => {
-        console.log('moveMusic type : ', type);
         const index = calcCurrentIndex(type);
         const music = getMusic(index);
 

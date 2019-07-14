@@ -1,3 +1,5 @@
+import { REPEAT_STATE_TYPE } from "../../../types/commonTypes";
+
 // Actions
 export const SET_SEARCH_MUSIC_LIST = 'SET_SEARCH_MUSIC_LIST';
 export const ADD_MUSIC = 'ADD_MUSIC';
@@ -8,7 +10,8 @@ export const SET_CURRENT_PLAY = 'SET_CURRENT_PLAY';
 export const SET_PLAYER_STATE = 'SET_PLAYER_STATE';
 export const SET_CURRENT_PLAY_DURATION = 'SET_CURRENT_PLAY_DURATION';
 export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
-export const TOGGLE_IS_REPEAT_ALL = 'TOGGLE_IS_REPEAT_ALL';
+// export const TOGGLE_IS_REPEAT_ALL = 'TOGGLE_IS_REPEAT_ALL';
+export const SET_REPEAT_STATE = 'SET_REPEAT_STATE';
 
 // Initial State Type
 export interface MusicState {
@@ -19,7 +22,8 @@ export interface MusicState {
     playerState : number;
     currentPlayDuration : string;
     currentIndex : number;
-    isRepeatAll : boolean;
+    // isRepeatAll : boolean;
+    repeatState : REPEAT_STATE_TYPE;
 };
 
 // Action Types
@@ -67,8 +71,9 @@ export interface SetCurrentIndexAction {
     payload : SetCurrentIndexPayload;
 }
 
-export interface ToggleIsRepeatAllAction {
-    type : typeof TOGGLE_IS_REPEAT_ALL;
+export interface SetRepeatStateAction {
+    type : typeof SET_REPEAT_STATE;
+    payload : SetRepeatStatePayload;
 };
 
 // Payload Types
@@ -102,6 +107,10 @@ interface SetCurrentPlayDurationPayload {
 
 interface SetCurrentIndexPayload {
     currentIndex : number;
+};
+
+interface SetRepeatStatePayload {
+    repeatState : REPEAT_STATE_TYPE;
 };
 
 // Other Types
@@ -150,4 +159,4 @@ export type MusicActions = SetSearchMusicListAction
                             | SetPlayerStateAction
                             | SetCurrentPlayDurationAction
                             | SetCurrentIndexAction
-                            | ToggleIsRepeatAllAction;
+                            | SetRepeatStateAction;

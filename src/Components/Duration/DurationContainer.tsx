@@ -3,6 +3,7 @@ import DurationPresenter from './DurationPresenter';
 import { MusicType } from '../../redux/modules/music/types';
 import { youtubePauseMusic, youtubePlayMusic } from '../../utils/youtube';
 import { makeTimeFormat, getTotalDuration, makeTotalDuration } from '../../utils/Time';
+import { REPEAT_STATE_TYPE, REPEAT_ALL, REPEAT_ONE } from '../../types/commonTypes';
 
 interface IProps {
     currentPlayDuration : string;
@@ -15,14 +16,14 @@ interface IProps {
     currentIndex : number;
     playMusic? : (music : MusicType) => void;
     getCurrentPlayDuration : (id : string) => void;
-    isRepeatAll : boolean;
+    repeatState : REPEAT_STATE_TYPE;
 };
 
 let timer : NodeJS.Timeout;
 let strTotalDuration : string = '';
 const SECOND = 60;
 
-const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, isRepeatAll }) => {
+const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, repeatState }) => {
     const [currentTime, setCurrentTime] = useState('00:00');
     
     const getCurrentTime = () => {
@@ -85,11 +86,11 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
 
     const getIndex = () : number => {
-        return (isRepeatAll && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
-    };
+        return (repeatState === REPEAT_ALL && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
+    };  
 
     const nextPlayMusic = () => {
-        const index = getIndex();
+        const index = repeatState === REPEAT_ONE ? currentIndex : getIndex();
 
         if(index < musicList.length) {
             youtubePlayMusic();

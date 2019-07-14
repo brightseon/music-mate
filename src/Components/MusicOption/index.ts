@@ -2,7 +2,8 @@ import MusicOption from './MusicOptionContainer';
 import { connect } from 'react-redux';
 import { MusicState } from '../../redux/modules/music/types';
 import { Dispatch } from 'redux';
-import { toggleIsRepeatAll } from '../../redux/modules/music/music';
+import { setRepeatState } from '../../redux/modules/music/music';
+import { REPEAT_STATE_TYPE } from '../../types/commonTypes';
 
 interface IState {
     music : MusicState;
@@ -10,20 +11,20 @@ interface IState {
 
 interface IMapStateToProps {
     currentPlayDuration : string;
-    isRepeatAll : boolean;
+    repeatState : string;
 };
 
 interface IMapDispatchToProps {
-    toggleIsRepeatAll : () => void;
+    setRepeatState : (repeatState : string) => void;
 };
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     currentPlayDuration : state.music.currentPlayDuration,
-    isRepeatAll : state.music.isRepeatAll
+    repeatState : state.music.repeatState
 });
 
 const mapDispatchToProps = (dispach : Dispatch) : IMapDispatchToProps => ({
-    toggleIsRepeatAll : () => dispach(toggleIsRepeatAll())
+    setRepeatState : (repeatState : REPEAT_STATE_TYPE) => dispach(setRepeatState(repeatState))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MusicOption);
