@@ -11,9 +11,10 @@ interface IProps {
     isSearching : boolean;
     addMusic? : (e : MouseEvent<HTMLDivElement>) => void;
     playMusic? : () => void;
+    duration? : string;
 };
 
-const Item : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic }) => (
+const ItemPresenter : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic, duration }) => (
     <div className={ styles.item } onClick={ playMusic }>
         <div className={ styles.musicInfo }>
             <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
@@ -24,9 +25,13 @@ const Item : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic }) =>
             </div>
         </div>
         {
-            isSearching ? <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } /> : <Time duration={ '4:00' } />
+            isSearching ? (
+                <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } />
+            ) : (
+                <Time duration={ duration } />
+            )
         }
     </div>
 );
 
-export default Item;
+export default ItemPresenter;

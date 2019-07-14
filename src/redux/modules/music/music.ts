@@ -12,6 +12,7 @@ import {
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import axios from 'axios';
 import { DURATION_URL } from '../../../../api';
+import { getDuration } from "../../../utils/Time";
 
 // Action
 export const setSearchMusicList = (searchMusicList : MusicType[]) : SetSearchMusicListAction => {
@@ -101,8 +102,9 @@ export const toggleIsRepeatAll = () : ToggleIsRepeatAllAction => {
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
-            const { data : { items } } : any = await axios.get(`${ DURATION_URL }${ id }`);
-            const duration = items[0].contentDetails.duration;
+            // const { data : { items } } : any = await axios.get(`${ DURATION_URL }${ id }`);
+            // const duration = items[0].contentDetails.duration;
+            const duration = await getDuration(id);
 
             dispatch(setCurrentPlayDuration(duration));
         } catch(err) {

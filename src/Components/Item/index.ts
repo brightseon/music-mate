@@ -1,4 +1,4 @@
-import Item from './Item';
+import Item from './ItemContainer';
 import { connect } from 'react-redux';
 import { SearchState } from '../../redux/modules/search/types';
 

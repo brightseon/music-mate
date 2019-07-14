@@ -40,7 +40,7 @@ const ListPresenter : SFC<IProps> = ({ searchMusicList, musicList, isSearching, 
                 ) : (
                     musicList.length > 0 ? (
                         musicList.map(music => 
-                            <Item key={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url }
+                            <Item key={ returnId(music.id) } idx={ returnId(music.id) } title={ music.snippet.title } url={ music.snippet.thumbnails.medium.url }
                                 playMusic={ () => playMusic(music) } />
                         )
                     ) : (

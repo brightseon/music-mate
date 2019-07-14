@@ -2,6 +2,7 @@ import React, { SFC, useState, useEffect } from 'react';
 import DurationPresenter from './DurationPresenter';
 import { MusicType } from '../../redux/modules/music/types';
 import { youtubePauseMusic, youtubePlayMusic } from '../../utils/youtube';
+import { makeTimeFormat, getTotalDuration, makeTotalDuration } from '../../utils/Time';
 
 interface IProps {
     currentPlayDuration : string;
@@ -22,14 +23,7 @@ let strTotalDuration : string = '';
 const SECOND = 60;
 
 const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, isRepeatAll }) => {
-    let totalDuration : number = 0;
     const [currentTime, setCurrentTime] = useState('00:00');
-
-    const makeTimeFormat = (time : number | string) => {
-        const strTime = typeof time === 'number' ? time.toString() : time;
-
-        return strTime.length < 2 ? `0${ strTime }` : strTime;
-    };
     
     const getCurrentTime = () => {
         if(player && playerState === 1) {
@@ -48,7 +42,7 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
         
-        if(currentTime === totalDuration) {
+        if(currentTime === getTotalDuration()) {
             pauseMusic();
         }
 
@@ -103,34 +97,8 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
     useEffect(getCurrentTime, [player, playerState, currentPlayDuration]);
     
-    const makeDurationFormat = () => {
-        const hourRegex = new RegExp('[0-9]{1,2}H', 'gi');
-        const minRegex = new RegExp('[0-9]{1,2}M', 'gi');
-        const secRegex = new RegExp('[0-9]{1,2}S', 'gi');
-        const execHour = hourRegex.exec(currentPlayDuration);
-        const execMin = minRegex.exec(currentPlayDuration);
-        const execSec = secRegex.exec(currentPlayDuration);
-        let hour = '', min = '', sec = '';
-        
-        if(execHour) {
-            const splitHour = execHour[0].split('H')[0];
-            hour = `${ makeTimeFormat(splitHour) }:`;
-            totalDuration += parseInt(splitHour) * SECOND * SECOND;
-        }
-        
-        if(execMin) {
-            const splitMin = execMin[0].split('M')[0];
-            min = `${ makeTimeFormat(splitMin) }:`;
-            totalDuration += parseInt(splitMin) * SECOND;
-        }
-        
-        if(execSec) {
-            const splitSec = execSec[0].split('S')[0];
-            sec = makeTimeFormat(splitSec);
-            totalDuration += parseInt(splitSec);
-        }
-
-        return `${ hour }${ min }${ sec }`;
+    const makeDurationFormat = () : string => {
+        return makeTotalDuration(currentPlayDuration);
     };
     
     return (
