@@ -3,9 +3,10 @@ import ProgressBarPresenter from './ProgressBarPresenter';
 
 interface IProps {
     player : any;
+    progress : number;
 };
 
-const ProgressBarContainer : SFC<IProps> = ({ player }) => {
+const ProgressBarContainer : SFC<IProps> = ({ player, progress }) => {
     let lastVolume : number = 100;
     const [volume, setVolume] = useState(0);
     
@@ -31,7 +32,8 @@ const ProgressBarContainer : SFC<IProps> = ({ player }) => {
     };
 
     return (
-        <ProgressBarPresenter volumeControl={ volumeControl } volume={ volume } player={ player } />
+        <ProgressBarPresenter volumeControl={ volumeControl } volume={ volume } player={ player }
+            progress={ progress } />
     );
 };
 

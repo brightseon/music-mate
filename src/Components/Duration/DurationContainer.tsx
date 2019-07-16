@@ -17,13 +17,14 @@ interface IProps {
     playMusic? : (music : MusicType) => void;
     getCurrentPlayDuration : (id : string) => void;
     repeatState : REPEAT_STATE_TYPE;
+    setProgress : (progress : number) => void;
 };
 
 let timer : NodeJS.Timeout;
 let strTotalDuration : string = '';
 const SECOND = 60;
 
-const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, repeatState }) => {
+const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, repeatState, setProgress }) => {
     const [currentTime, setCurrentTime] = useState('00:00');
     
     const getCurrentTime = () => {
@@ -45,12 +46,20 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
                 break;
         }
     };
+
+
+    const makePercent = (currentTime : number, totalDuration : number) => {
+        setProgress(currentTime / totalDuration * 100);
+    };
     
     const makeCurrentTimeFormat = () => {
         let formatTime : string = '';
         const currentTime = Math.ceil(player.getCurrentTime());
+        const totalDuration = getTotalDuration();
+
+        makePercent(currentTime, totalDuration);
         
-        if(currentTime === getTotalDuration()) {
+        if(currentTime === totalDuration) {
             stopMusic();
         }
 

@@ -8,6 +8,8 @@ import {
     SET_CURRENT_INDEX,
     SetRepeatStateAction,
     SET_REPEAT_STATE,
+    SetProgressAction,
+    SET_PROGRESS,
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { getDuration } from "../../../utils/Time";
@@ -101,6 +103,15 @@ export const setRepeatState = (repeatState : REPEAT_STATE_TYPE) : SetRepeatState
     };
 };
 
+export const setProgress = (progress : number) : SetProgressAction => {
+    return {
+        type : SET_PROGRESS,
+        payload : {
+            progress
+        }
+    };
+};
+
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
@@ -121,7 +132,8 @@ const initialState : MusicState = {
     playerState : 2,
     currentPlayDuration : '',
     currentIndex : 0,
-    repeatState : OFF
+    repeatState : OFF,
+    progress : 0
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -155,6 +167,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_REPEAT_STATE : 
             return applySetRepeatState(state, action);
+
+        case SET_PROGRESS : 
+            return applySetProgress(state, action);
 
         default :
             return state;
@@ -228,6 +243,13 @@ const applySetRepeatState = (state : MusicState, action : SetRepeatStateAction) 
     return {
         ...state,
         repeatState : action.payload.repeatState
+    };
+};
+
+const applySetProgress = (state : MusicState, action : SetProgressAction) : MusicState => {
+    return {
+        ...state,
+        progress : action.payload.progress
     };
 };
 

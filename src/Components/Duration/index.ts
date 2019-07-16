@@ -1,8 +1,8 @@
 import Duration from './DurationContainer';
 import { connect } from 'react-redux';
-import { MusicState, MusicType, SetCurrentPlayDurationAction, SetPlayerStateAction, SetCurrentPlayAction, SetCurrentIndexAction } from '../../redux/modules/music/types';
+import { MusicState, MusicType, SetCurrentPlayDurationAction, SetPlayerStateAction, SetCurrentPlayAction, SetCurrentIndexAction, SetProgressAction } from '../../redux/modules/music/types';
 import { Dispatch } from 'redux';
-import { setPlayerState, setCurrentPlay, setCurrentIndex, getCurrentPlayDuration } from '../../redux/modules/music/music';
+import { setPlayerState, setCurrentPlay, setCurrentIndex, getCurrentPlayDuration, setProgress } from '../../redux/modules/music/music';
 import withMusic from '../../HoC/withMusic';
 import { ThunkDispatch } from 'redux-thunk';
 import { REPEAT_STATE_TYPE } from '../../types/commonTypes';
@@ -24,9 +24,10 @@ interface IMapDispatchToProps {
     setCurrentPlay : (music : MusicType) => void;
     getCurrentPlayDuration : (id : string) => void;
     setCurrentIndex : (index : number) => void;
+    setProgress : (progress : number) => void;
 }
 
-type DispatchActions = SetPlayerStateAction | SetCurrentPlayDurationAction | SetCurrentPlayAction | SetCurrentIndexAction;
+type DispatchActions = SetPlayerStateAction | SetCurrentPlayDurationAction | SetCurrentPlayAction | SetCurrentIndexAction | SetProgressAction;
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     currentPlayDuration : state.music.currentPlayDuration,
@@ -40,7 +41,8 @@ const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, DispatchActions>) :
     setPlayerState : (playerState : number) => dispatch(setPlayerState(playerState)),
     setCurrentPlay : (music : MusicType) => dispatch(setCurrentPlay(music)),
     getCurrentPlayDuration : (id : string) => dispatch(getCurrentPlayDuration(id)),
-    setCurrentIndex : (index : number) => dispatch(setCurrentIndex(index))
+    setCurrentIndex : (index : number) => dispatch(setCurrentIndex(index)),
+    setProgress : (progress : number) => dispatch(setProgress(progress))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withMusic(Duration));

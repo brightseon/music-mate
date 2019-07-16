@@ -9,27 +9,28 @@ interface IProps {
     volumeControl : (e : any) => void;
     volume : number;
     player : any;
+    progress : number;
 };
 
-const ProgressBarPresenter : SFC<IProps> = ({ volumeControl, volume }) => (
+const ProgressBarPresenter : SFC<IProps> = ({ volumeControl, volume, progress }) => (
     <div className={ styles.progressBar }>
         <div className={ styles.line }>
-            <div className={ styles.circle }></div>
+            <div className={ styles.progress } style={{ width : `${ progress }%` }}></div>
         </div>
         <div className={ styles.volumeBox }>
             {
                 volume > 70 && (
-                    <Button className={ '' } buttonName={ SpeakerButton } clickEvent={ volumeControl } />
+                    <Button className={ styles.volume } buttonName={ SpeakerButton } clickEvent={ volumeControl } />
                 )
             }
             {
                 (volume > 0 && volume < 70) && (
-                    <Button className={ '' } buttonName={ ControlButton } clickEvent={ volumeControl } />
+                    <Button className={ styles.volume } buttonName={ ControlButton } clickEvent={ volumeControl } />
                 )
             }
             {
                 volume === 0 && (
-                    <Button className={ '' } buttonName={ MuteButton } clickEvent={ volumeControl } />
+                    <Button className={ styles.volume } buttonName={ MuteButton } clickEvent={ volumeControl } />
                 )
             }
         </div>
