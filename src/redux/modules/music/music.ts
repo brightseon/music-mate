@@ -10,6 +10,8 @@ import {
     SET_REPEAT_STATE,
     SetProgressAction,
     SET_PROGRESS,
+    ToggleIsRandom,
+    TOGGLE_IS_RANDOM,
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { getDuration } from "../../../utils/Time";
@@ -112,6 +114,12 @@ export const setProgress = (progress : number) : SetProgressAction => {
     };
 };
 
+export const toggleIsRandom = () : ToggleIsRandom => {
+    return {
+        type : TOGGLE_IS_RANDOM
+    };
+};
+
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
@@ -133,7 +141,8 @@ const initialState : MusicState = {
     currentPlayDuration : '',
     currentIndex : 0,
     repeatState : OFF,
-    progress : 0
+    progress : 0,
+    isRandom : false
 };
 
 const reducer = (state : MusicState = initialState, action : MusicActions) :  MusicState => {
@@ -170,6 +179,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case SET_PROGRESS : 
             return applySetProgress(state, action);
+
+        case TOGGLE_IS_RANDOM :
+            return applyToggleIsRandom(state);
 
         default :
             return state;
@@ -250,6 +262,13 @@ const applySetProgress = (state : MusicState, action : SetProgressAction) : Musi
     return {
         ...state,
         progress : action.payload.progress
+    };
+};
+
+const applyToggleIsRandom = (state : MusicState) : MusicState => {
+    return {
+        ...state,
+        isRandom : !state.isRandom
     };
 };
 

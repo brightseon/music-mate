@@ -12,6 +12,7 @@ export const SET_CURRENT_PLAY_DURATION = 'SET_CURRENT_PLAY_DURATION';
 export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
 export const SET_REPEAT_STATE = 'SET_REPEAT_STATE';
 export const SET_PROGRESS = 'SET_PROGRESS';
+export const TOGGLE_IS_RANDOM = 'TOGGLE_IS_RANDOM';
 
 // Initial State Type
 export interface MusicState {
@@ -24,6 +25,7 @@ export interface MusicState {
     currentIndex : number;
     repeatState : REPEAT_STATE_TYPE;
     progress : number;
+    isRandom : boolean;
 };
 
 // Action Types
@@ -79,7 +81,11 @@ export interface SetRepeatStateAction {
 export interface SetProgressAction {
     type : typeof SET_PROGRESS;
     payload : SetProgressPayload;
-}
+};
+
+export interface ToggleIsRandom {
+    type : typeof TOGGLE_IS_RANDOM;
+};
 
 // Payload Types
 interface SetSearchMusicListPayload {
@@ -169,4 +175,5 @@ export type MusicActions = SetSearchMusicListAction
                             | SetCurrentPlayDurationAction
                             | SetCurrentIndexAction
                             | SetRepeatStateAction
-                            | SetProgressAction;
+                            | SetProgressAction
+                            | ToggleIsRandom;

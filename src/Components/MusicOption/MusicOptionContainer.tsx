@@ -6,9 +6,11 @@ interface IProps {
     player : any;
     repeatState : string;
     setRepeatState : (repeatState : REPEAT_STATE_TYPE) => void;
+    isRandom : boolean;
+    toggleIsRandom : () => void;
 };
 
-const MusicOptionContainer : SFC<IProps> = ({ player, repeatState, setRepeatState }) => {
+const MusicOptionContainer : SFC<IProps> = ({ player, repeatState, setRepeatState, isRandom, toggleIsRandom }) => {
 
     const changeRepeatState = () => {
         switch(repeatState) {
@@ -27,7 +29,8 @@ const MusicOptionContainer : SFC<IProps> = ({ player, repeatState, setRepeatStat
     };
 
     return (
-        <MusicOptionPresenter player={ player } repeatState={ repeatState } changeRepeatState={ changeRepeatState } />
+        <MusicOptionPresenter player={ player } repeatState={ repeatState } changeRepeatState={ changeRepeatState }
+            isRandom={ isRandom } toggleIsRandom={ toggleIsRandom } />
     );
 };
 

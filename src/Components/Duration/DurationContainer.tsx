@@ -18,13 +18,14 @@ interface IProps {
     getCurrentPlayDuration : (id : string) => void;
     repeatState : REPEAT_STATE_TYPE;
     setProgress : (progress : number) => void;
+    isRandom : boolean;
 };
 
 let timer : NodeJS.Timeout;
 let strTotalDuration : string = '';
 const SECOND = 60;
 
-const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, repeatState, setProgress }) => {
+const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, player, setPlayerState, musicList, currentIndex, playMusic : pPlayMusic, repeatState, setProgress, isRandom }) => {
     const [currentTime, setCurrentTime] = useState('00:00');
     
     const getCurrentTime = () => {
