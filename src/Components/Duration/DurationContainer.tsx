@@ -96,7 +96,11 @@ const DurationContainer : SFC<IProps> = ({ currentPlayDuration, playerState, pla
 
 
     const getIndex = () : number => {
-        return (repeatState === REPEAT_ALL && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
+        if(isRandom) {
+            return Math.floor(Math.random() * musicList.length);
+        } else {
+            return (repeatState === REPEAT_ALL && currentIndex === musicList.length - 1) ? 0 : currentIndex + 1;
+        }
     };  
 
     const nextPlayMusic = () => {
