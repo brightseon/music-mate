@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { SFC } from 'react';
 import styles from './styles.scss';
 import Button from '../Button';
 import MuteButton from '../../../images/buttons/muteButton.svg';
 import ControlButton from '../../../images/buttons/controlButton.svg';
 import SpeakerButton from '../../../images/buttons/speakerButton.svg';
-let volume = 0;
+
+interface IProps {
+    volume : number;
+    toggleMute : () => void;
+};
 
 const buttonName = (volume : number) => {
     if(volume === 0) {
@@ -16,17 +20,13 @@ const buttonName = (volume : number) => {
     }
 }
 
-const VolumePresenter = () => {
-    
-    return (
-        // <div>
-        //     <input type="range" min="0" max="100" />
-        // </div>
-
-        <div className={ styles.volumeBox }>
-            <Button className={ styles.volume } buttonName={ buttonName(volume) } /* clickEvent={ volumeControl } */ />
-        </div>
-    );
-};
+const VolumePresenter : SFC<IProps> = ({ volume, toggleMute }) => (
+    // <div>
+    //     <input type="range" min="0" max="100" />
+    // </div>
+    <div className={ styles.volumeBox }>
+        <Button className={ styles.volume } buttonName={ buttonName(volume) } clickEvent={ toggleMute } />
+    </div>
+);
 
 export default VolumePresenter;
