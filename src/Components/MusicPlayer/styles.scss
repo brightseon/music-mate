@@ -1,7 +1,7 @@
 .music-player {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0.4;
 
     .hidden-player-container {
         height: 0px;
@@ -9,12 +9,10 @@
         .hidden-player {
             width: 0px;
             height: 0px;
-            // visibility: hidden;
         }
     }
     
     .thumbnail-box {
-        width: 70%;
         height: 40%;
         display: flex;
         justify-content: center;

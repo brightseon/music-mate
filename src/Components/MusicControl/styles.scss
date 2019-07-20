@@ -1,15 +1,9 @@
 .music-control {
-    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 6px;
     user-select: none;
-
-    .repeat-buttons {
-        width: 20px;
-        height: 20px;
-    }
 
     .control-buttons {
         flex: 1;
@@ -27,10 +21,5 @@
             width: 45px;
             height: 45px;
         }
-    }
-
-    .random-buttons {
-        width: 20px;
-        height: 20px;
     }
 }
