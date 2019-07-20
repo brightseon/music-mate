@@ -3,18 +3,34 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 20px;
     margin-bottom: 6px;
     user-select: none;
 
-    .rewind-button,
-    .next-button {
-        width: 28.29px;
-        height: 18px;
+    .repeat-buttons {
+        width: 20px;
+        height: 20px;
     }
-    
-    .play-button {
-        width: 45px;
-        height: 45px;
+
+    .control-buttons {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .rewind-button,
+        .next-button {
+            width: 28.29px;
+            height: 18px;
+        }
+        
+        .play-button {
+            width: 45px;
+            height: 45px;
+        }
+    }
+
+    .random-buttons {
+        width: 20px;
+        height: 20px;
     }
 }

@@ -32,8 +32,8 @@ const MusicPlayerPresenter : SFC<IProps> = ({ currentPlay, musicPlay, player }) 
         <div className={ styles.thumbnailBox }>
             <Thumbnail className={ `${ styles.mediumThumbnail } ${ styles.thumbnail }` } thumbnail={ currentPlay && currentPlay.snippet.thumbnails.medium.url } />
         </div>
-        <MusicControl player={ player } />
         <ProgressBar player={ player } />
+        <MusicControl player={ player } />
         <MusicOption player={ player } />
     </div>
 );

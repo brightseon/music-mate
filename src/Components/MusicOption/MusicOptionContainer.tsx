@@ -13,19 +13,19 @@ interface IProps {
 const MusicOptionContainer : SFC<IProps> = ({ player, repeatState, setRepeatState, isRandom, toggleIsRandom }) => {
 
     const changeRepeatState = () => {
-        switch(repeatState) {
-            case OFF :
-                setRepeatState(REPEAT_ALL);
-                break;
+        // switch(repeatState) {
+        //     case OFF :
+        //         setRepeatState(REPEAT_ALL);
+        //         break;
 
-            case REPEAT_ALL : 
-                setRepeatState(REPEAT_ONE);
-                break;
+        //     case REPEAT_ALL : 
+        //         setRepeatState(REPEAT_ONE);
+        //         break;
 
-            case REPEAT_ONE :
-                setRepeatState(OFF);
-                break;
-        }
+        //     case REPEAT_ONE :
+        //         setRepeatState(OFF);
+        //         break;
+        // }
     };
 
     return (
