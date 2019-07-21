@@ -1,6 +1,7 @@
 import React, { SFC } from 'react';
 import styles from './styles.scss';
 import Button from '../Button';
+import Slider from '../Slider';
 import MuteButton from '../../../images/buttons/muteButton.svg';
 import ControlButton from '../../../images/buttons/controlButton.svg';
 import SpeakerButton from '../../../images/buttons/speakerButton.svg';
@@ -21,11 +22,9 @@ const buttonName = (volume : number) => {
 }
 
 const VolumePresenter : SFC<IProps> = ({ volume, toggleMute }) => (
-    // <div>
-    //     <input type="range" min="0" max="100" />
-    // </div>
     <div className={ styles.volumeBox }>
         <Button className={ styles.volume } buttonName={ buttonName(volume) } clickEvent={ toggleMute } />
+        <Slider className={ styles.volumeControl } />
     </div>
 );
 
