@@ -25,7 +25,7 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, true);
-    }, []);
+    }, [searchMusicList]);
 
     const handleScroll = () => {
         if(!isSearching) return;
@@ -33,13 +33,15 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
         const listBox = listBoxRef.current;
         const list = listRef.current;
 
-        let scrollHeight = Math.max(listBox.scrollHeight, list.scrollHeight);
-        let scrollTop = Math.max(listBox.scrollTop, list.scrollTop);
-        let clientHeight = listBox.clientHeight;
-
-        if(scrollTop + clientHeight === scrollHeight) {
-            loading(true);
-            searchMusic(null, nextPageToken);
+        if(list) {
+            let scrollHeight = Math.max(listBox.scrollHeight, list.scrollHeight);
+            let scrollTop = Math.max(listBox.scrollTop, list.scrollTop);
+            let clientHeight = listBox.clientHeight;
+    
+            if(scrollTop + clientHeight === scrollHeight) {
+                loading(true);
+                searchMusic(null, nextPageToken);
+            }
         }
     };
 
@@ -51,7 +53,7 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
     const playMusic = (music : MusicType) => {
         pPlayMusic(music);
     };
-
+    console.log('searchList : ', searchMusicList);
     return (
         <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
             addMusic={ addMusic } listBoxRef={ listBoxRef } listRef={ listRef } playMusic={ playMusic } />
