@@ -24,8 +24,10 @@ const VolumeContainer : SFC<IProps> = ({ player }) => {
     useEffect(initVolume, [player]);
 
     const settingVolume = (volume : number) => {
-        player.setVolume(volume);
-        setVolume(volume);
+        if(player) {
+            player.setVolume(volume);
+            setVolume(volume);
+        }
     };
 
     const setLastVolume = (volume : number) => {
@@ -43,7 +45,7 @@ const VolumeContainer : SFC<IProps> = ({ player }) => {
         }
     };
     
-    return <VolumePresenter volume={ volume } toggleMute={ toggleMute } />;
+    return <VolumePresenter volume={ volume } toggleMute={ toggleMute } settingVolume={ settingVolume } />;
 };
 
 export default VolumeContainer;

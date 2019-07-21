@@ -9,6 +9,7 @@ import SpeakerButton from '../../../images/buttons/speakerButton.svg';
 interface IProps {
     volume : number;
     toggleMute : () => void;
+    settingVolume : (volume : number) => void;
 };
 
 const buttonName = (volume : number) => {
@@ -21,10 +22,10 @@ const buttonName = (volume : number) => {
     }
 }
 
-const VolumePresenter : SFC<IProps> = ({ volume, toggleMute }) => (
+const VolumePresenter : SFC<IProps> = ({ volume, toggleMute, settingVolume }) => (
     <div className={ styles.volumeBox }>
         <Button className={ styles.volume } buttonName={ buttonName(volume) } clickEvent={ toggleMute } />
-        <Slider className={ styles.volumeControl } />
+        <Slider className={ styles.volumeControl } volume={ volume } settingVolume={ settingVolume } />
     </div>
 );
 
