@@ -6,16 +6,6 @@
     .loading {
         width: 100%;
         height: 100%;
-        animation: spinner 1.2s steps(12) infinite;
-    }
-}
-
-@keyframes spinner {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
+        @include spinnerMixin();
     }
 }

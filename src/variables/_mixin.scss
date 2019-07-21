@@ -1,3 +1,11 @@
 @mixin viewResetButtonMixin {
     animation: viewResetButton 1s;
 }
+
+@mixin spinnerMixin {
+    animation: spinner 1.2s steps(12) infinite;
+}
+
+@mixin currentPlayMusicMixin {
+    animation: currentPlayMusic 10s ease infinite;
+}

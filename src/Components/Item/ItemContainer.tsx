@@ -1,6 +1,7 @@
 import React, { SFC, MouseEvent, useEffect, useState } from 'react';
 import ItemPresenter from './ItemPresenter';
 import { getDuration, makeTotalDuration } from '../../utils/Time';
+import { MusicType } from '../../redux/modules/music/types';
 
 interface IProps {
     title : string;
@@ -9,9 +10,10 @@ interface IProps {
     addMusic? : (e : MouseEvent<HTMLDivElement>) => void;
     playMusic? : () => void;
     idx? : string;
+    currentPlay : MusicType;
 };
 
-const ItemContainer : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic, idx }) => {
+const ItemContainer : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic, idx, currentPlay }) => {
     const [duration, setDuration] = useState('00:00');
 
     const getItemDuration = async () => {
@@ -25,8 +27,8 @@ const ItemContainer : SFC<IProps> = ({ title, url, isSearching, addMusic, playMu
 
     useEffect(() => { getItemDuration(); }, []);
 
-    return <ItemPresenter title={ title } url={ url } isSearching={ isSearching } 
-        addMusic={ addMusic } playMusic={ playMusic } duration={ duration } />;
+    return <ItemPresenter title={ title } url={ url } isSearching={ isSearching } idx={ idx }
+        addMusic={ addMusic } playMusic={ playMusic } duration={ duration } currentPlay={ currentPlay } />;
 };
 
 export default ItemContainer

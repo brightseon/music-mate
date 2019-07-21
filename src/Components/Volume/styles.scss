@@ -6,12 +6,12 @@
     &:hover {
         .volume-control {
             width: 100px;
-            transition: width 3s ease;
+            transition: width 2s ease;
             
             input[type="range"]::-webkit-slider-thumb {
                 width: 10px;
                 height: 10px;
-                transition: opacity 3s ease-in;
+                transition: opacity 2s ease-in;
                 opacity: 1;
             }
         }
@@ -19,10 +19,10 @@
     
     .volume-control {
         width: 0;
-        transition: width 3s ease-out;
+        transition: width 2s ease-out;
 
         input[type="range"]::-webkit-slider-thumb {
-            transition: opacity 3s ease-in-out;
+            transition: opacity 2s ease-in-out;
             opacity: 0;
         }
     }

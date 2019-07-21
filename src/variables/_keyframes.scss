@@ -7,3 +7,27 @@
         opacity: 1;
     }
 }
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes currentPlayMusic {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: 20px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
