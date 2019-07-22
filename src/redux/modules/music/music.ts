@@ -12,6 +12,8 @@ import {
     SET_PROGRESS,
     ToggleIsRandom,
     TOGGLE_IS_RANDOM,
+    RemoveMusicListAction,
+    REMOVE_MUSIC_LIST,
 } from "./types";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { getDuration } from "../../../utils/Time";
@@ -120,6 +122,15 @@ export const toggleIsRandom = () : ToggleIsRandom => {
     };
 };
 
+export const removeMusicList = (id : string) : RemoveMusicListAction => {
+    return {
+        type : REMOVE_MUSIC_LIST,
+        payload : {
+            id
+        }
+    };
+};
+
 export const getCurrentPlayDuration = (id : string) : ThunkAction<Promise<void>, {}, {}, SetCurrentPlayDurationAction> => {
     return async (dispatch : ThunkDispatch<{}, {}, SetCurrentPlayDurationAction>) : Promise<void> => {
         try {
@@ -182,6 +193,9 @@ const reducer = (state : MusicState = initialState, action : MusicActions) :  Mu
 
         case TOGGLE_IS_RANDOM :
             return applyToggleIsRandom(state);
+
+        case REMOVE_MUSIC_LIST : 
+            return applyRemoveMusicList(state, action);
 
         default :
             return state;
@@ -269,6 +283,13 @@ const applyToggleIsRandom = (state : MusicState) : MusicState => {
     return {
         ...state,
         isRandom : !state.isRandom
+    };
+};
+
+const applyRemoveMusicList = (state : MusicState, action : RemoveMusicListAction) : MusicState => {
+    return {
+        ...state,
+        musicList : state.musicList.filter(music => music.id.videoId !== action.payload.id)
     };
 };
 

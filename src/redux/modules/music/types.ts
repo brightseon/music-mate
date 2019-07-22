@@ -13,6 +13,7 @@ export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
 export const SET_REPEAT_STATE = 'SET_REPEAT_STATE';
 export const SET_PROGRESS = 'SET_PROGRESS';
 export const TOGGLE_IS_RANDOM = 'TOGGLE_IS_RANDOM';
+export const REMOVE_MUSIC_LIST = 'REMOVE_MUSIC_LIST';
 
 // Initial State Type
 export interface MusicState {
@@ -87,6 +88,11 @@ export interface ToggleIsRandom {
     type : typeof TOGGLE_IS_RANDOM;
 };
 
+export interface RemoveMusicListAction {
+    type : typeof REMOVE_MUSIC_LIST;
+    payload : RemoveMusicListPayload;
+};
+
 // Payload Types
 interface SetSearchMusicListPayload {
     searchMusicList : MusicType[];
@@ -126,6 +132,10 @@ interface SetRepeatStatePayload {
 
 interface SetProgressPayload {
     progress : number;
+};
+
+interface RemoveMusicListPayload {
+    id : string;
 };
 
 // Other Types
@@ -176,4 +186,5 @@ export type MusicActions = SetSearchMusicListAction
                             | SetCurrentIndexAction
                             | SetRepeatStateAction
                             | SetProgressAction
-                            | ToggleIsRandom;
+                            | ToggleIsRandom
+                            | RemoveMusicListAction;

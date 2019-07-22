@@ -53,7 +53,7 @@ const ListContainer : SFC<IProps> = ({ isSearching, musicList, searchMusicList, 
     const playMusic = (music : MusicType) => {
         pPlayMusic(music);
     };
-    console.log('searchList : ', searchMusicList);
+    
     return (
         <ListPresenter isSearching={ isSearching } musicList={ musicList } searchMusicList={ searchMusicList }
             addMusic={ addMusic } listBoxRef={ listBoxRef } listRef={ listRef } playMusic={ playMusic } />

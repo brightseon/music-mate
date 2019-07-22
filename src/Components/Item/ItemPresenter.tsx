@@ -4,6 +4,7 @@ import Thumbnail from '../Thumbnail';
 import Time from '../Time';
 import Button from '../Button';
 import AddButton from '../../../images/buttons/addPlayListButton.svg';
+import RemoveButton from '../../../images/buttons/rubbishButton.svg';
 import { MusicType } from '../../redux/modules/music/types';
 
 interface IProps {
@@ -15,9 +16,10 @@ interface IProps {
     duration? : string;
     currentPlay : MusicType;
     idx : string;
+    removeMusicList : (e : MouseEvent) => void;
 };
 
-const ItemPresenter : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic, duration, currentPlay, idx }) => (
+const ItemPresenter : SFC<IProps> = ({ title, url, isSearching, addMusic, playMusic, duration, currentPlay, idx, removeMusicList }) => (
     <div className={ styles.item } onClick={ playMusic }>
         <div className={ styles.musicInfo }>
             <Thumbnail className={ styles.thumbnail } thumbnail={ url } />
@@ -27,13 +29,16 @@ const ItemPresenter : SFC<IProps> = ({ title, url, isSearching, addMusic, playMu
                 </span>
             </div>
         </div>
-        {
-            isSearching ? (
-                <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } />
-            ) : (
-                <Time duration={ duration } />
-            )
-        }
+        <div className={ styles.lastColumn }>
+            <Time className={ styles.time } duration={ duration } />
+            {
+                isSearching ? (
+                    <Button className={ styles.addMusicBtn } buttonName={ AddButton } clickEvent={ addMusic } />
+                ) : (
+                    <Button className={ styles.removeMusicBtn } buttonName={ RemoveButton } clickEvent={ removeMusicList } />
+                )
+            }
+        </div>
     </div>
 );
 
