@@ -2,8 +2,8 @@ import Item from './ItemContainer';
 import { connect } from 'react-redux';
 import { SearchState } from '../../redux/modules/search/types';
 import { MusicState, MusicType } from '../../redux/modules/music/types';
-import { Dispatch } from 'redux';
 import { removeMusicList } from '../../redux/modules/music/music';
+import { Dispatch } from 'redux';
 
 interface IState {
     search : SearchState;
@@ -13,6 +13,7 @@ interface IState {
 interface IMapStateToProps {
     isSearching : boolean;
     currentPlay : MusicType;
+    musicList : MusicType[];
 };
 
 interface IMapDispatchToProps {
@@ -21,7 +22,8 @@ interface IMapDispatchToProps {
 
 const mapStateToProps = (state : IState) : IMapStateToProps => ({
     isSearching : state.search.isSearching,
-    currentPlay : state.music.currentPlay
+    currentPlay : state.music.currentPlay,
+    musicList : state.music.musicList
 });
 
 const mapDispatchToProps = (dispatch : Dispatch) : IMapDispatchToProps => ({
